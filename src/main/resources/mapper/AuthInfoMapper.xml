@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="auth_info">
+	<resultMap id="BaseResultMap" type="com.nzonly.tb.entity.AuthInfo">
+		<result column="id" property="id" jdbcType="BIGINT" />
+		<result column="access_token" property="accessToken" jdbcType="VARCHAR" />
+		<result column="token_type" property="tokenType" jdbcType="VARCHAR" />
+		<result column="expires_in" property="expiresIn" jdbcType="BIGINT" />
+		<result column="refresh_token" property="refreshToken" jdbcType="VARCHAR" />
+		<result column="re_expires_in" property="reExpiresIn" jdbcType="BIGINT" />
+		<result column="r1_expires_in" property="r1ExpiresIn" jdbcType="BIGINT" />
+		<result column="r2_expires_in" property="r2ExpiresIn" jdbcType="BIGINT" />
+		<result column="w1_expires_in" property="w1ExpiresIn" jdbcType="BIGINT" />
+		<result column="w2_expires_in" property="w2ExpiresIn" jdbcType="BIGINT" />
+		<result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+		<result column="last_update_time" property="lastUpdateTime" jdbcType="TIMESTAMP" />
+	</resultMap>
+	<insert id="insert" parameterType="com.nzonly.tb.entity.AuthInfo">
+		insert into auth_info (id, access_token, token_type,
+		expires_in, refresh_token, re_expires_in,
+		r1_expires_in, r2_expires_in, w1_expires_in,
+		w2_expires_in, create_time, last_update_time
+		)
+		values (#{id,jdbcType=BIGINT}, #{accessToken,jdbcType=VARCHAR}, #{tokenType,jdbcType=VARCHAR},
+		#{expiresIn,jdbcType=BIGINT}, #{refreshToken,jdbcType=VARCHAR}, #{reExpiresIn,jdbcType=BIGINT},
+		#{r1ExpiresIn,jdbcType=BIGINT}, #{r2ExpiresIn,jdbcType=BIGINT}, #{w1ExpiresIn,jdbcType=BIGINT},
+		#{w2ExpiresIn,jdbcType=BIGINT}, #{createTime,jdbcType=TIMESTAMP}, #{lastUpdateTime,jdbcType=TIMESTAMP}
+		)
+	</insert>
+	<insert id="insertSelective" parameterType="com.nzonly.tb.entity.AuthInfo">
+		insert into auth_info
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				id,
+			</if>
+			<if test="accessToken != null">
+				access_token,
+			</if>
+			<if test="tokenType != null">
+				token_type,
+			</if>
+			<if test="expiresIn != null">
+				expires_in,
+			</if>
+			<if test="refreshToken != null">
+				refresh_token,
+			</if>
+			<if test="reExpiresIn != null">
+				re_expires_in,
+			</if>
+			<if test="r1ExpiresIn != null">
+				r1_expires_in,
+			</if>
+			<if test="r2ExpiresIn != null">
+				r2_expires_in,
+			</if>
+			<if test="w1ExpiresIn != null">
+				w1_expires_in,
+			</if>
+			<if test="w2ExpiresIn != null">
+				w2_expires_in,
+			</if>
+			<if test="createTime != null">
+				create_time,
+			</if>
+			<if test="lastUpdateTime != null">
+				last_update_time,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				#{id,jdbcType=BIGINT},
+			</if>
+			<if test="accessToken != null">
+				#{accessToken,jdbcType=VARCHAR},
+			</if>
+			<if test="tokenType != null">
+				#{tokenType,jdbcType=VARCHAR},
+			</if>
+			<if test="expiresIn != null">
+				#{expiresIn,jdbcType=BIGINT},
+			</if>
+			<if test="refreshToken != null">
+				#{refreshToken,jdbcType=VARCHAR},
+			</if>
+			<if test="reExpiresIn != null">
+				#{reExpiresIn,jdbcType=BIGINT},
+			</if>
+			<if test="r1ExpiresIn != null">
+				#{r1ExpiresIn,jdbcType=BIGINT},
+			</if>
+			<if test="r2ExpiresIn != null">
+				#{r2ExpiresIn,jdbcType=BIGINT},
+			</if>
+			<if test="w1ExpiresIn != null">
+				#{w1ExpiresIn,jdbcType=BIGINT},
+			</if>
+			<if test="w2ExpiresIn != null">
+				#{w2ExpiresIn,jdbcType=BIGINT},
+			</if>
+			<if test="createTime != null">
+				#{createTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="lastUpdateTime != null">
+				#{lastUpdateTime,jdbcType=TIMESTAMP},
+			</if>
+		</trim>
+	</insert>
+</mapper>
