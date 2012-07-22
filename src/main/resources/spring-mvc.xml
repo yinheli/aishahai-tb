@@ -11,6 +11,10 @@
 			expression="org.springframework.stereotype.Controller" />
 	</context:component-scan>
 	
+	<context:property-placeholder
+			ignore-unresolvable="true" system-properties-mode="OVERRIDE"
+			location="classpath:/config/*.properties" />
+	
 	<mvc:annotation-driven />
 	<mvc:default-servlet-handler/>
 	<mvc:view-controller path="/" view-name="forward:/index"/>
@@ -18,6 +22,10 @@
 	<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
 		<property name="prefix" value="/WEB-INF/views/"/>
 		<property name="suffix" value=".jsp"/>
+	</bean>
+	
+	<bean class="org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator" depends-on="lifecycleBeanPostProcessor">
+		<property name="proxyTargetClass" value="true" />
 	</bean>
 
 </beans>

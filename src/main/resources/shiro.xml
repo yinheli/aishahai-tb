@@ -23,6 +23,8 @@
 				/login = authc
 				/logout = logout
 				/static/** = anon
+				/favicon.ico = anon
+				/open/** = anon
 		    	/** = user
 		 	</value>
 		</property>

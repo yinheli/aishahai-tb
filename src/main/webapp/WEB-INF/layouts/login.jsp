@@ -6,6 +6,8 @@
 <head>
 <title>爱莎海 - 淘宝工具  - <sitemesh:title /></title>
 <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="copyright" content="Copyright (C) 爱莎海   design in tianjin by yinheli @2012 All rights reserved." />
 <sitemesh:head />
 </head>
 <body>
@@ -14,9 +16,7 @@
 			<sitemesh:body />
 		</div>
 		
-		<footer>
-			copyright 爱莎海  design in tianjin by yinheli @2012
-		</footer>
+		<%@ include file="footer.jsp" %>
 	</div>
 </body>
 </html>

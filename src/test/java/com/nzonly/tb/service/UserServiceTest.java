@@ -21,5 +21,10 @@ public class UserServiceTest extends BaseTestNoWeb {
 	public void testGetByUid() {
 		Assert.assertNull(userService.getByUid("__123456"));
 	}
+	
+	@Test
+	public void testGetByAuthUserId() {
+		userService.getByAuthUserId("12", "taobao");
+	}
 
 }

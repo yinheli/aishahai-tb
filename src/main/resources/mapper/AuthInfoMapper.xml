@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="auth_info">
+<mapper namespace="AuthInfo">
 	<resultMap id="BaseResultMap" type="com.nzonly.tb.entity.AuthInfo">
-		<result column="id" property="id" jdbcType="BIGINT" />
+		<id column="id" property="id" jdbcType="BIGINT" />
+		<result column="taobao_user_id" property="taobaoUserId" jdbcType="VARCHAR" />
+		<result column="taobao_user_nick" property="taobaoUserNick" jdbcType="VARCHAR" />
 		<result column="access_token" property="accessToken" jdbcType="VARCHAR" />
 		<result column="token_type" property="tokenType" jdbcType="VARCHAR" />
 		<result column="expires_in" property="expiresIn" jdbcType="BIGINT" />
@@ -15,23 +17,47 @@
 		<result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
 		<result column="last_update_time" property="lastUpdateTime" jdbcType="TIMESTAMP" />
 	</resultMap>
+	<sql id="Base_Column_List">
+		id, taobao_user_id, taobao_user_nick, access_token, token_type, expires_in, refresh_token,
+		re_expires_in, r1_expires_in, r2_expires_in, w1_expires_in, w2_expires_in, create_time,
+		last_update_time
+	</sql>
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long">
+		select
+		<include refid="Base_Column_List" />
+		from auth_info
+		where id = #{id,jdbcType=BIGINT}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+		delete from auth_info
+		where id = #{id,jdbcType=BIGINT}
+	</delete>
 	<insert id="insert" parameterType="com.nzonly.tb.entity.AuthInfo">
-		insert into auth_info (id, access_token, token_type,
-		expires_in, refresh_token, re_expires_in,
-		r1_expires_in, r2_expires_in, w1_expires_in,
-		w2_expires_in, create_time, last_update_time
-		)
-		values (#{id,jdbcType=BIGINT}, #{accessToken,jdbcType=VARCHAR}, #{tokenType,jdbcType=VARCHAR},
-		#{expiresIn,jdbcType=BIGINT}, #{refreshToken,jdbcType=VARCHAR}, #{reExpiresIn,jdbcType=BIGINT},
-		#{r1ExpiresIn,jdbcType=BIGINT}, #{r2ExpiresIn,jdbcType=BIGINT}, #{w1ExpiresIn,jdbcType=BIGINT},
-		#{w2ExpiresIn,jdbcType=BIGINT}, #{createTime,jdbcType=TIMESTAMP}, #{lastUpdateTime,jdbcType=TIMESTAMP}
-		)
+		<selectKey resultType="java.lang.Long" keyProperty="id" order="AFTER">
+			SELECT LAST_INSERT_ID()
+		</selectKey>
+		insert into auth_info (taobao_user_id, taobao_user_nick, access_token,
+		token_type, expires_in, refresh_token,
+		re_expires_in, r1_expires_in, r2_expires_in,
+		w1_expires_in, w2_expires_in, create_time,
+		last_update_time)
+		values (#{taobaoUserId,jdbcType=VARCHAR}, #{taobaoUserNick,jdbcType=VARCHAR}, #{accessToken,jdbcType=VARCHAR},
+		#{tokenType,jdbcType=VARCHAR}, #{expiresIn,jdbcType=BIGINT}, #{refreshToken,jdbcType=VARCHAR},
+		#{reExpiresIn,jdbcType=BIGINT}, #{r1ExpiresIn,jdbcType=BIGINT}, #{r2ExpiresIn,jdbcType=BIGINT},
+		#{w1ExpiresIn,jdbcType=BIGINT}, #{w2ExpiresIn,jdbcType=BIGINT}, #{createTime,jdbcType=TIMESTAMP},
+		#{lastUpdateTime,jdbcType=TIMESTAMP})
 	</insert>
 	<insert id="insertSelective" parameterType="com.nzonly.tb.entity.AuthInfo">
+		<selectKey resultType="java.lang.Long" keyProperty="id" order="AFTER">
+			SELECT LAST_INSERT_ID()
+		</selectKey>
 		insert into auth_info
 		<trim prefix="(" suffix=")" suffixOverrides=",">
-			<if test="id != null">
-				id,
+			<if test="taobaoUserId != null">
+				taobao_user_id,
+			</if>
+			<if test="taobaoUserNick != null">
+				taobao_user_nick,
 			</if>
 			<if test="accessToken != null">
 				access_token,
@@ -68,8 +94,11 @@
 			</if>
 		</trim>
 		<trim prefix="values (" suffix=")" suffixOverrides=",">
-			<if test="id != null">
-				#{id,jdbcType=BIGINT},
+			<if test="taobaoUserId != null">
+				#{taobaoUserId,jdbcType=VARCHAR},
+			</if>
+			<if test="taobaoUserNick != null">
+				#{taobaoUserNick,jdbcType=VARCHAR},
 			</if>
 			<if test="accessToken != null">
 				#{accessToken,jdbcType=VARCHAR},
@@ -106,4 +135,72 @@
 			</if>
 		</trim>
 	</insert>
+	<update id="updateByPrimaryKeySelective" parameterType="com.nzonly.tb.entity.AuthInfo">
+		update auth_info
+		<set>
+			<if test="taobaoUserId != null">
+				taobao_user_id = #{taobaoUserId,jdbcType=VARCHAR},
+			</if>
+			<if test="taobaoUserNick != null">
+				taobao_user_nick = #{taobaoUserNick,jdbcType=VARCHAR},
+			</if>
+			<if test="accessToken != null">
+				access_token = #{accessToken,jdbcType=VARCHAR},
+			</if>
+			<if test="tokenType != null">
+				token_type = #{tokenType,jdbcType=VARCHAR},
+			</if>
+			<if test="expiresIn != null">
+				expires_in = #{expiresIn,jdbcType=BIGINT},
+			</if>
+			<if test="refreshToken != null">
+				refresh_token = #{refreshToken,jdbcType=VARCHAR},
+			</if>
+			<if test="reExpiresIn != null">
+				re_expires_in = #{reExpiresIn,jdbcType=BIGINT},
+			</if>
+			<if test="r1ExpiresIn != null">
+				r1_expires_in = #{r1ExpiresIn,jdbcType=BIGINT},
+			</if>
+			<if test="r2ExpiresIn != null">
+				r2_expires_in = #{r2ExpiresIn,jdbcType=BIGINT},
+			</if>
+			<if test="w1ExpiresIn != null">
+				w1_expires_in = #{w1ExpiresIn,jdbcType=BIGINT},
+			</if>
+			<if test="w2ExpiresIn != null">
+				w2_expires_in = #{w2ExpiresIn,jdbcType=BIGINT},
+			</if>
+			<if test="createTime != null">
+				create_time = #{createTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="lastUpdateTime != null">
+				last_update_time = #{lastUpdateTime,jdbcType=TIMESTAMP},
+			</if>
+		</set>
+		where id = #{id,jdbcType=BIGINT}
+	</update>
+	<update id="updateByPrimaryKey" parameterType="com.nzonly.tb.entity.AuthInfo">
+		update auth_info
+		set taobao_user_id = #{taobaoUserId,jdbcType=VARCHAR},
+		taobao_user_nick = #{taobaoUserNick,jdbcType=VARCHAR},
+		access_token = #{accessToken,jdbcType=VARCHAR},
+		token_type = #{tokenType,jdbcType=VARCHAR},
+		expires_in = #{expiresIn,jdbcType=BIGINT},
+		refresh_token = #{refreshToken,jdbcType=VARCHAR},
+		re_expires_in = #{reExpiresIn,jdbcType=BIGINT},
+		r1_expires_in = #{r1ExpiresIn,jdbcType=BIGINT},
+		r2_expires_in = #{r2ExpiresIn,jdbcType=BIGINT},
+		w1_expires_in = #{w1ExpiresIn,jdbcType=BIGINT},
+		w2_expires_in = #{w2ExpiresIn,jdbcType=BIGINT},
+		create_time = #{createTime,jdbcType=TIMESTAMP},
+		last_update_time = #{lastUpdateTime,jdbcType=TIMESTAMP}
+		where id = #{id,jdbcType=BIGINT}
+	</update>
+
+	<!-- ################################################33 -->
+
+	<select id="getByTaobaoUserId" resultMap="BaseResultMap">
+		select a.* from auth_info a where a.taobao_user_id=#{taobaoUserId,jdbcType=VARCHAR}
+	</select>
 </mapper>

@@ -9,6 +9,7 @@
 	http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.1.xsd">
 	
 	<import resource="classpath:shiro.xml"/>
+	<import resource="classpath:quartz.xml"/>
 	
 	<context:component-scan base-package="com.nzonly.tb">
 		<context:exclude-filter type="annotation"
@@ -53,7 +54,7 @@
 	<beans profile="test,development">
 		<context:property-placeholder
 			ignore-unresolvable="true" system-properties-mode="OVERRIDE"
-			location="classpath:/config/test/*.properties" />
+			location="classpath:config/test/*.properties" />
 	</beans>
 
 	<beans profile="production">

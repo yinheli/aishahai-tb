@@ -1,23 +1,39 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="user">
+<mapper namespace="User">
 	<resultMap id="BaseResultMap" type="com.nzonly.tb.entity.User">
-		<result column="id" property="id" jdbcType="INTEGER" />
+		<id column="id" property="id" jdbcType="INTEGER" />
 		<result column="uid" property="uid" jdbcType="VARCHAR" />
 		<result column="nickname" property="nickname" jdbcType="VARCHAR" />
 		<result column="email" property="email" jdbcType="VARCHAR" />
 		<result column="from_channel" property="fromChannel" jdbcType="VARCHAR" />
 		<result column="auth_id" property="authId" jdbcType="BIGINT" />
+		<result column="auth_user_id" property="authUserId" jdbcType="VARCHAR" />
 		<result column="pwd" property="pwd" jdbcType="VARCHAR" />
 		<result column="salt" property="salt" jdbcType="VARCHAR" />
 	</resultMap>
+	<sql id="Base_Column_List">
+		id, uid, nickname, email, from_channel, auth_id, auth_user_id, pwd, salt
+	</sql>
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+		select
+		<include refid="Base_Column_List" />
+		from user
+		where id = #{id,jdbcType=INTEGER}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+		delete from user
+		where id = #{id,jdbcType=INTEGER}
+	</delete>
 	<insert id="insert" parameterType="com.nzonly.tb.entity.User">
 		insert into user (id, uid, nickname,
 		email, from_channel, auth_id,
-		pwd, salt)
+		auth_user_id, pwd, salt
+		)
 		values (#{id,jdbcType=INTEGER}, #{uid,jdbcType=VARCHAR}, #{nickname,jdbcType=VARCHAR},
 		#{email,jdbcType=VARCHAR}, #{fromChannel,jdbcType=VARCHAR}, #{authId,jdbcType=BIGINT},
-		#{pwd,jdbcType=VARCHAR}, #{salt,jdbcType=VARCHAR})
+		#{authUserId,jdbcType=VARCHAR}, #{pwd,jdbcType=VARCHAR}, #{salt,jdbcType=VARCHAR}
+		)
 	</insert>
 	<insert id="insertSelective" parameterType="com.nzonly.tb.entity.User">
 		insert into user
@@ -39,6 +55,9 @@
 			</if>
 			<if test="authId != null">
 				auth_id,
+			</if>
+			<if test="authUserId != null">
+				auth_user_id,
 			</if>
 			<if test="pwd != null">
 				pwd,
@@ -66,6 +85,9 @@
 			<if test="authId != null">
 				#{authId,jdbcType=BIGINT},
 			</if>
+			<if test="authUserId != null">
+				#{authUserId,jdbcType=VARCHAR},
+			</if>
 			<if test="pwd != null">
 				#{pwd,jdbcType=VARCHAR},
 			</if>
@@ -74,10 +96,56 @@
 			</if>
 		</trim>
 	</insert>
+	<update id="updateByPrimaryKeySelective" parameterType="com.nzonly.tb.entity.User">
+		update user
+		<set>
+			<if test="uid != null">
+				uid = #{uid,jdbcType=VARCHAR},
+			</if>
+			<if test="nickname != null">
+				nickname = #{nickname,jdbcType=VARCHAR},
+			</if>
+			<if test="email != null">
+				email = #{email,jdbcType=VARCHAR},
+			</if>
+			<if test="fromChannel != null">
+				from_channel = #{fromChannel,jdbcType=VARCHAR},
+			</if>
+			<if test="authId != null">
+				auth_id = #{authId,jdbcType=BIGINT},
+			</if>
+			<if test="authUserId != null">
+				auth_user_id = #{authUserId,jdbcType=VARCHAR},
+			</if>
+			<if test="pwd != null">
+				pwd = #{pwd,jdbcType=VARCHAR},
+			</if>
+			<if test="salt != null">
+				salt = #{salt,jdbcType=VARCHAR},
+			</if>
+		</set>
+		where id = #{id,jdbcType=INTEGER}
+	</update>
+	<update id="updateByPrimaryKey" parameterType="com.nzonly.tb.entity.User">
+		update user
+		set uid = #{uid,jdbcType=VARCHAR},
+		nickname = #{nickname,jdbcType=VARCHAR},
+		email = #{email,jdbcType=VARCHAR},
+		from_channel = #{fromChannel,jdbcType=VARCHAR},
+		auth_id = #{authId,jdbcType=BIGINT},
+		auth_user_id = #{authUserId,jdbcType=VARCHAR},
+		pwd = #{pwd,jdbcType=VARCHAR},
+		salt = #{salt,jdbcType=VARCHAR}
+		where id = #{id,jdbcType=INTEGER}
+	</update>
 
 	<!-- ##################################### -->
 
 	<select id="getByUid" resultMap="BaseResultMap">
 		select u.* from user u where u.uid=#{uid,jdbcType=VARCHAR}
+	</select>
+	
+	<select id="getByAuthUserId" resultMap="BaseResultMap">
+		select u.* from user u where u.auth_user_id=#{authUserId,jdbcType=VARCHAR} and u.from_channel=#{from,jdbcType=VARCHAR}
 	</select>
 </mapper>

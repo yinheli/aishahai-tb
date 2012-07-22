@@ -4,8 +4,15 @@
 	<artifactId>tb</artifactId>
 	<packaging>war</packaging>
 	<version>1.0.0</version>
-	<name>tb Maven Webapp</name>
+	<name>tb</name>
 	<url>http://maven.apache.org</url>
+
+	<repositories>
+		<repository>
+			<id>k-int</id>
+			<url>http://developer.k-int.com/maven2/</url>
+		</repository>
+	</repositories>
 
 	<properties>
 		<spring.version>3.1.1.RELEASE</spring.version>
@@ -92,7 +99,7 @@
 			<artifactId>mysql-connector-java</artifactId>
 			<version>5.1.20</version>
 		</dependency>
-		
+
 		<!-- jstl -->
 		<dependency>
 			<groupId>javax.servlet</groupId>
@@ -161,13 +168,24 @@
 			<artifactId>commons-lang3</artifactId>
 			<version>3.1</version>
 		</dependency>
-		
+
 		<dependency>
-			<groupId>taobao-sdk</groupId>
+			<groupId>org.quartz-scheduler</groupId>
+			<artifactId>quartz</artifactId>
+			<version>2.1.5</version>
+		</dependency>
+
+		<dependency>
+			<groupId>log4j</groupId>
+			<artifactId>log4j</artifactId>
+			<version>1.2.15</version>
+		</dependency>
+
+		<!-- mvn install:install-file -Dfile=taobao-sdk-java-online_standard.jar -DgroupId=com.taobao.open -Dgourp=com.taobao.open -Dversion=1.0.0 -DartifactId=taobao-sdk -Dartifact=tabao-sdk -Dpackaging=jar -->
+		<dependency>
+			<groupId>com.taobao.open</groupId>
 			<artifactId>taobao-sdk</artifactId>
-			<scope>system</scope>
-			<version>1.0</version>
-			<systemPath>${project.basedir}/lib/taobao-sdk-java-online_standard.jar</systemPath>
+			<version>1.0.0</version>
 		</dependency>
 	</dependencies>
 
@@ -201,7 +219,8 @@
 				<groupId>org.codehaus.mojo</groupId>
 				<artifactId>tomcat-maven-plugin</artifactId>
 				<configuration>
-					<path>/tb</path>
+					<port>80</port>
+					<path>/</path>
 					<charset>utf-8</charset>
 					<uriEncoding>UTF-8</uriEncoding>
 				</configuration>

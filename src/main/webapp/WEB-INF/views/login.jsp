@@ -27,6 +27,7 @@
 		</div>
 		<div class="row action">
 			<input type="submit" value="login">
+			<a href="https://oauth.taobao.com/authorize?client_id=${appKey}&response_type=code&redirect_uri=${appCallback}">用淘宝账号授权登录</a>
 		</div>
 	</form:form>
 </body>

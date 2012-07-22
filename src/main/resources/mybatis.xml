@@ -15,7 +15,7 @@
 	</settings>
 	<typeAliases>
 		<typeAlias alias="AuthInfo" type="com.nzonly.tb.entity.AuthInfo" />
-		<typeAlias alias="Trade" type="com.nzonly.tb.entity.Trade" />
+		<typeAlias alias="TaobaoTrade" type="com.nzonly.tb.entity.TaobaoTrade" />
 		<typeAlias alias="User" type="com.nzonly.tb.entity.User" />
 	</typeAliases>
 </configuration>

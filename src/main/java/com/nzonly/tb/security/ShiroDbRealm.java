@@ -9,7 +9,6 @@ import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.AuthenticationInfo;
 import org.apache.shiro.authc.AuthenticationToken;
 import org.apache.shiro.authc.SimpleAuthenticationInfo;
-import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.authc.credential.HashedCredentialsMatcher;
 import org.apache.shiro.authz.AuthorizationInfo;
 import org.apache.shiro.realm.AuthorizingRealm;
@@ -56,12 +55,32 @@ public class ShiroDbRealm extends AuthorizingRealm {
 	 */
 	@Override
 	protected AuthenticationInfo doGetAuthenticationInfo(
-			AuthenticationToken authcToken) throws AuthenticationException {
-		UsernamePasswordToken token = (UsernamePasswordToken) authcToken;
-		User user = userService.getByUid(token.getUsername());
-		byte[] salt = Encodes.decodeHex(user.getSalt());
-		return new SimpleAuthenticationInfo(new ShiroUser(user.getUid(), user.getNickname()), user.getPwd(),
-				ByteSource.Util.bytes(salt), getName());
+			AuthenticationToken token) throws AuthenticationException {
+		if (token.getPrincipal() == null) return null;
+		
+		User user = userService.getByUid((String) token.getPrincipal());
+		if (user == null) {
+			return null;
+		}
+		
+		if (token instanceof OpenAuthenticationToken) {
+			HashPassword pass = encrypt(OpenAuthenticationToken.EMPTY_PASS);
+			byte[] salt = Encodes.decodeHex(pass.salt);
+			return new SimpleAuthenticationInfo(new ShiroUser(user.getUid(), user.getNickname()), pass.password,
+					ByteSource.Util.bytes(salt), getName());
+		} else {
+			byte[] salt = Encodes.decodeHex(user.getSalt());
+			return new SimpleAuthenticationInfo(new ShiroUser(user.getUid(), user.getNickname()), user.getPwd(),
+					ByteSource.Util.bytes(salt), getName());
+		}
+	}
+	
+	/**
+	 * @see org.apache.shiro.realm.AuthenticatingRealm#supports(org.apache.shiro.authc.AuthenticationToken)   
+	 */
+	@Override
+	public boolean supports(AuthenticationToken token) {
+		return super.supports(token) || token instanceof OpenAuthenticationToken;
 	}
 	
 	/**
