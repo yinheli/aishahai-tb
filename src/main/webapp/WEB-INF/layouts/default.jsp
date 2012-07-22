@@ -1,6 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8"%>
 <%@ taglib prefix="sitemesh" uri="http://www.opensymphony.com/sitemesh/decorator" %>
-<%@include file="../views/tag.jsp"%>
+<%@ include file="../views/tag.jsp"%>
 <!DOCTYPE HTML>
 <html>
 <head>
@@ -21,7 +21,7 @@
 			<ul>
 				<li><a href="${ctx}/">首页</a></li>
 				<li><a href="${ctx}/trade">订单信息</a></li>
-				<li><a href="${ctx}/task">计划任务</a></li>
+				<li><a href="${ctx}/task">异步任务</a></li>
 				<li><a href="${ctx}/schedule">定时服务</a></li>
 				<shiro:user>
 					<li><shiro:principal property="name"/>, <a href="${ctx}/logout">退出</a></li>
