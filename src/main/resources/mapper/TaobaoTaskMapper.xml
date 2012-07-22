@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="TaobaoTask">
+	<resultMap id="BaseResultMap" type="com.nzonly.tb.entity.TaobaoTask">
+		<id column="task_id" property="taskId" jdbcType="BIGINT" />
+		<result column="created" property="created" jdbcType="TIMESTAMP" />
+		<result column="params" property="params" jdbcType="VARCHAR" />
+		<result column="body" property="body" jdbcType="VARCHAR" />
+		<result column="method" property="method" jdbcType="VARCHAR" />
+		<result column="status" property="status" jdbcType="VARCHAR" />
+		<result column="download_url" property="downloadUrl" jdbcType="VARCHAR" />
+		<result column="check_code" property="checkCode" jdbcType="VARCHAR" />
+		<result column="last_check_time" property="lastCheckTime" jdbcType="TIMESTAMP" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		task_id, created, params, body, method, status, download_url, check_code, last_check_time
+	</sql>
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long">
+		select
+		<include refid="Base_Column_List" />
+		from taobao_task
+		where task_id = #{taskId,jdbcType=BIGINT}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+		delete from taobao_task
+		where task_id = #{taskId,jdbcType=BIGINT}
+	</delete>
+	<insert id="insert" parameterType="com.nzonly.tb.entity.TaobaoTask">
+		insert into taobao_task (task_id, created, params,
+		body, method, status,
+		download_url, check_code, last_check_time
+		)
+		values (#{taskId,jdbcType=BIGINT}, #{created,jdbcType=TIMESTAMP}, #{params,jdbcType=VARCHAR},
+		#{body,jdbcType=VARCHAR}, #{method,jdbcType=VARCHAR}, #{status,jdbcType=VARCHAR},
+		#{downloadUrl,jdbcType=VARCHAR}, #{checkCode,jdbcType=VARCHAR}, #{lastCheckTime,jdbcType=TIMESTAMP}
+		)
+	</insert>
+	<insert id="insertSelective" parameterType="com.nzonly.tb.entity.TaobaoTask">
+		insert into taobao_task
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="taskId != null">
+				task_id,
+			</if>
+			<if test="created != null">
+				created,
+			</if>
+			<if test="params != null">
+				params,
+			</if>
+			<if test="body != null">
+				body,
+			</if>
+			<if test="method != null">
+				method,
+			</if>
+			<if test="status != null">
+				status,
+			</if>
+			<if test="downloadUrl != null">
+				download_url,
+			</if>
+			<if test="checkCode != null">
+				check_code,
+			</if>
+			<if test="lastCheckTime != null">
+				last_check_time,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="taskId != null">
+				#{taskId,jdbcType=BIGINT},
+			</if>
+			<if test="created != null">
+				#{created,jdbcType=TIMESTAMP},
+			</if>
+			<if test="params != null">
+				#{params,jdbcType=VARCHAR},
+			</if>
+			<if test="body != null">
+				#{body,jdbcType=VARCHAR},
+			</if>
+			<if test="method != null">
+				#{method,jdbcType=VARCHAR},
+			</if>
+			<if test="status != null">
+				#{status,jdbcType=VARCHAR},
+			</if>
+			<if test="downloadUrl != null">
+				#{downloadUrl,jdbcType=VARCHAR},
+			</if>
+			<if test="checkCode != null">
+				#{checkCode,jdbcType=VARCHAR},
+			</if>
+			<if test="lastCheckTime != null">
+				#{lastCheckTime,jdbcType=TIMESTAMP},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective" parameterType="com.nzonly.tb.entity.TaobaoTask">
+		update taobao_task
+		<set>
+			<if test="created != null">
+				created = #{created,jdbcType=TIMESTAMP},
+			</if>
+			<if test="params != null">
+				params = #{params,jdbcType=VARCHAR},
+			</if>
+			<if test="body != null">
+				body = #{body,jdbcType=VARCHAR},
+			</if>
+			<if test="method != null">
+				method = #{method,jdbcType=VARCHAR},
+			</if>
+			<if test="status != null">
+				status = #{status,jdbcType=VARCHAR},
+			</if>
+			<if test="downloadUrl != null">
+				download_url = #{downloadUrl,jdbcType=VARCHAR},
+			</if>
+			<if test="checkCode != null">
+				check_code = #{checkCode,jdbcType=VARCHAR},
+			</if>
+			<if test="lastCheckTime != null">
+				last_check_time = #{lastCheckTime,jdbcType=TIMESTAMP},
+			</if>
+		</set>
+		where task_id = #{taskId,jdbcType=BIGINT}
+	</update>
+	<update id="updateByPrimaryKey" parameterType="com.nzonly.tb.entity.TaobaoTask">
+		update taobao_task
+		set created = #{created,jdbcType=TIMESTAMP},
+		params = #{params,jdbcType=VARCHAR},
+		body = #{body,jdbcType=VARCHAR},
+		method = #{method,jdbcType=VARCHAR},
+		status = #{status,jdbcType=VARCHAR},
+		download_url = #{downloadUrl,jdbcType=VARCHAR},
+		check_code = #{checkCode,jdbcType=VARCHAR},
+		last_check_time = #{lastCheckTime,jdbcType=TIMESTAMP}
+		where task_id = #{taskId,jdbcType=BIGINT}
+	</update>
+
+	<!-- ######################### -->
+	<select id="countTaskByTaskId" resultType="long">
+		select count(task_id) from taobao_task where task_id = #{taskId,jdbcType=BIGINT}
+	</select>
+
+	<select id="getByPage" resultMap="BaseResultMap">
+		select sql_calc_found_rows * from taobao_task order by task_id desc limit ${offset}, ${size}
+	</select>
+</mapper>

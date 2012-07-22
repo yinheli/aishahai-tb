@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="TaobaoTrade">
+	<resultMap id="BaseResultMap" type="com.nzonly.tb.entity.TaobaoTrade">
+		<id column="id" property="id" jdbcType="BIGINT" />
+		<result column="tid" property="tid" jdbcType="BIGINT" />
+		<result column="auth_id" property="authId" jdbcType="BIGINT" />
+		<result column="out_sid" property="outSid" jdbcType="VARCHAR" />
+		<result column="company_name" property="companyName" jdbcType="VARCHAR" />
+		<result column="out_status" property="outStatus" jdbcType="VARCHAR" />
+		<result column="buyer_nick" property="buyerNick" jdbcType="VARCHAR" />
+		<result column="buyer_alipay_no" property="buyerAlipayNo" jdbcType="VARCHAR" />
+		<result column="payment" property="payment" jdbcType="DOUBLE" />
+		<result column="delivery_track" property="deliveryTrack" jdbcType="VARCHAR" />
+		<result column="last_update_time" property="lastUpdateTime" jdbcType="TIMESTAMP" />
+		<result column="note" property="note" jdbcType="VARCHAR" />
+	</resultMap>
+	<resultMap id="ResultMapWithBLOBs" type="com.nzonly.tb.entity.TaobaoTrade" extends="BaseResultMap">
+		<result column="orders" property="orders" jdbcType="LONGVARCHAR" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		id, tid, auth_id, out_sid, company_name, out_status, buyer_nick, buyer_alipay_no,
+		payment, delivery_track, last_update_time, note
+	</sql>
+	<sql id="Blob_Column_List">
+		orders
+	</sql>
+	<select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Long">
+		select
+		<include refid="Base_Column_List" />
+		,
+		<include refid="Blob_Column_List" />
+		from taobao_trade
+		where id = #{id,jdbcType=BIGINT}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+		delete from taobao_trade
+		where id = #{id,jdbcType=BIGINT}
+	</delete>
+	<insert id="insert" parameterType="com.nzonly.tb.entity.TaobaoTrade">
+		insert into taobao_trade (id, tid, auth_id,
+		out_sid, company_name, out_status,
+		buyer_nick, buyer_alipay_no, payment,
+		delivery_track, last_update_time, note,
+		orders)
+		values (#{id,jdbcType=BIGINT}, #{tid,jdbcType=BIGINT}, #{authId,jdbcType=BIGINT},
+		#{outSid,jdbcType=VARCHAR}, #{companyName,jdbcType=VARCHAR}, #{outStatus,jdbcType=VARCHAR},
+		#{buyerNick,jdbcType=VARCHAR}, #{buyerAlipayNo,jdbcType=VARCHAR}, #{payment,jdbcType=DOUBLE},
+		#{deliveryTrack,jdbcType=VARCHAR}, #{lastUpdateTime,jdbcType=TIMESTAMP}, #{note,jdbcType=VARCHAR},
+		#{orders,jdbcType=LONGVARCHAR})
+	</insert>
+	<insert id="insertSelective" parameterType="com.nzonly.tb.entity.TaobaoTrade">
+		insert into taobao_trade
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				id,
+			</if>
+			<if test="tid != null">
+				tid,
+			</if>
+			<if test="authId != null">
+				auth_id,
+			</if>
+			<if test="outSid != null">
+				out_sid,
+			</if>
+			<if test="companyName != null">
+				company_name,
+			</if>
+			<if test="outStatus != null">
+				out_status,
+			</if>
+			<if test="buyerNick != null">
+				buyer_nick,
+			</if>
+			<if test="buyerAlipayNo != null">
+				buyer_alipay_no,
+			</if>
+			<if test="payment != null">
+				payment,
+			</if>
+			<if test="deliveryTrack != null">
+				delivery_track,
+			</if>
+			<if test="lastUpdateTime != null">
+				last_update_time,
+			</if>
+			<if test="note != null">
+				note,
+			</if>
+			<if test="orders != null">
+				orders,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				#{id,jdbcType=BIGINT},
+			</if>
+			<if test="tid != null">
+				#{tid,jdbcType=BIGINT},
+			</if>
+			<if test="authId != null">
+				#{authId,jdbcType=BIGINT},
+			</if>
+			<if test="outSid != null">
+				#{outSid,jdbcType=VARCHAR},
+			</if>
+			<if test="companyName != null">
+				#{companyName,jdbcType=VARCHAR},
+			</if>
+			<if test="outStatus != null">
+				#{outStatus,jdbcType=VARCHAR},
+			</if>
+			<if test="buyerNick != null">
+				#{buyerNick,jdbcType=VARCHAR},
+			</if>
+			<if test="buyerAlipayNo != null">
+				#{buyerAlipayNo,jdbcType=VARCHAR},
+			</if>
+			<if test="payment != null">
+				#{payment,jdbcType=DOUBLE},
+			</if>
+			<if test="deliveryTrack != null">
+				#{deliveryTrack,jdbcType=VARCHAR},
+			</if>
+			<if test="lastUpdateTime != null">
+				#{lastUpdateTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="note != null">
+				#{note,jdbcType=VARCHAR},
+			</if>
+			<if test="orders != null">
+				#{orders,jdbcType=LONGVARCHAR},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective" parameterType="com.nzonly.tb.entity.TaobaoTrade">
+		update taobao_trade
+		<set>
+			<if test="tid != null">
+				tid = #{tid,jdbcType=BIGINT},
+			</if>
+			<if test="authId != null">
+				auth_id = #{authId,jdbcType=BIGINT},
+			</if>
+			<if test="outSid != null">
+				out_sid = #{outSid,jdbcType=VARCHAR},
+			</if>
+			<if test="companyName != null">
+				company_name = #{companyName,jdbcType=VARCHAR},
+			</if>
+			<if test="outStatus != null">
+				out_status = #{outStatus,jdbcType=VARCHAR},
+			</if>
+			<if test="buyerNick != null">
+				buyer_nick = #{buyerNick,jdbcType=VARCHAR},
+			</if>
+			<if test="buyerAlipayNo != null">
+				buyer_alipay_no = #{buyerAlipayNo,jdbcType=VARCHAR},
+			</if>
+			<if test="payment != null">
+				payment = #{payment,jdbcType=DOUBLE},
+			</if>
+			<if test="deliveryTrack != null">
+				delivery_track = #{deliveryTrack,jdbcType=VARCHAR},
+			</if>
+			<if test="lastUpdateTime != null">
+				last_update_time = #{lastUpdateTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="note != null">
+				note = #{note,jdbcType=VARCHAR},
+			</if>
+			<if test="orders != null">
+				orders = #{orders,jdbcType=LONGVARCHAR},
+			</if>
+		</set>
+		where id = #{id,jdbcType=BIGINT}
+	</update>
+	<update id="updateByPrimaryKeyWithBLOBs" parameterType="com.nzonly.tb.entity.TaobaoTrade">
+		update taobao_trade
+		set tid = #{tid,jdbcType=BIGINT},
+		auth_id = #{authId,jdbcType=BIGINT},
+		out_sid = #{outSid,jdbcType=VARCHAR},
+		company_name = #{companyName,jdbcType=VARCHAR},
+		out_status = #{outStatus,jdbcType=VARCHAR},
+		buyer_nick = #{buyerNick,jdbcType=VARCHAR},
+		buyer_alipay_no = #{buyerAlipayNo,jdbcType=VARCHAR},
+		payment = #{payment,jdbcType=DOUBLE},
+		delivery_track = #{deliveryTrack,jdbcType=VARCHAR},
+		last_update_time = #{lastUpdateTime,jdbcType=TIMESTAMP},
+		note = #{note,jdbcType=VARCHAR},
+		orders = #{orders,jdbcType=LONGVARCHAR}
+		where id = #{id,jdbcType=BIGINT}
+	</update>
+	<update id="updateByPrimaryKey" parameterType="com.nzonly.tb.entity.TaobaoTrade">
+		update taobao_trade
+		set tid = #{tid,jdbcType=BIGINT},
+		auth_id = #{authId,jdbcType=BIGINT},
+		out_sid = #{outSid,jdbcType=VARCHAR},
+		company_name = #{companyName,jdbcType=VARCHAR},
+		out_status = #{outStatus,jdbcType=VARCHAR},
+		buyer_nick = #{buyerNick,jdbcType=VARCHAR},
+		buyer_alipay_no = #{buyerAlipayNo,jdbcType=VARCHAR},
+		payment = #{payment,jdbcType=DOUBLE},
+		delivery_track = #{deliveryTrack,jdbcType=VARCHAR},
+		last_update_time = #{lastUpdateTime,jdbcType=TIMESTAMP},
+		note = #{note,jdbcType=VARCHAR}
+		where id = #{id,jdbcType=BIGINT}
+	</update>
+</mapper>
