@@ -23,7 +23,7 @@ public class ScheduleController extends BaseController {
 	@RequestMapping(value = {"index", ""})
 	public String index(Model model) {
 		model.addAttribute("list", new Object());
-		return "index";
+		return "schedule/index";
 	}
 
 }
