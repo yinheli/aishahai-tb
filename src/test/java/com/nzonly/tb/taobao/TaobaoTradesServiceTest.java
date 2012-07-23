@@ -1,9 +1,11 @@
 package com.nzonly.tb.taobao;
 
 import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.test.annotation.Rollback;
 
 import com.nzonly.tb.test.BaseTestNoWeb;
@@ -18,6 +20,22 @@ public class TaobaoTradesServiceTest extends BaseTestNoWeb implements TestConsta
 	
 	@Autowired
 	private TaobaoTradesService service;
+	
+	/**
+	 * 搜索当前会话用户作为卖家已卖出的交易数据 
+	 * 
+	 * @throws Exception
+	 * @author yinheli
+	 * @date 2012-7-24 上午7:23:44
+	 */
+	@Test
+	public void testTradesSoldGet() throws Exception {
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		Date start = sdf.parse("2012-07-21 00:00:00");
+		Date end =  sdf.parse("2012-07-21 23:59:59");
+		PageRequest page = new PageRequest(1, 40);
+		service.tradesSoldGet(start, end, page, session);
+	}
 	
 	/**
 	 * 提交异步查询任务
