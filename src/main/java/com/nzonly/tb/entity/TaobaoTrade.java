@@ -16,87 +16,127 @@ public class TaobaoTrade extends BaseEntity {
 
 	/**
 	 * 主键
-	 * Database column taobao_trade.id
+	 *
+	 * Table:     taobao_trade
+	 * Column:    id
+	 * Nullable:  false
 	 */
 	private Long id;
 
 	/**
 	 * 淘宝订单信息
-	 * Database column taobao_trade.tid
+	 *
+	 * Table:     taobao_trade
+	 * Column:    tid
+	 * Nullable:  true
 	 */
 	private Long tid;
 
 	/**
 	 * 授权信息id
-	 * Database column taobao_trade.auth_id
+	 *
+	 * Table:     taobao_trade
+	 * Column:    auth_id
+	 * Nullable:  true
 	 */
 	private Long authId;
 
 	/**
 	 * 运单号
-	 * Database column taobao_trade.out_sid
+	 *
+	 * Table:     taobao_trade
+	 * Column:    out_sid
+	 * Nullable:  true
 	 */
 	private String outSid;
 
 	/**
 	 * 物流公司
-	 * Database column taobao_trade.company_name
+	 *
+	 * Table:     taobao_trade
+	 * Column:    company_name
+	 * Nullable:  true
 	 */
 	private String companyName;
 
 	/**
 	 * 物流信息状态, 订单的物流状态 * 等候发送给物流公司 *已提交给物流公司,等待物流公司接单 *已经确认消息接收，等待物流公司接单 *物流公司已接单 *物流公司不接单 *物流公司揽收失败 *物流公司揽收成功 *签收失败 *对方已签收 *对方拒绝签收
-	 * Database column taobao_trade.out_status
+	 *
+	 * Table:     taobao_trade
+	 * Column:    out_status
+	 * Nullable:  true
 	 */
 	private String outStatus;
 
 	/**
 	 * 买家昵称
-	 * Database column taobao_trade.buyer_nick
+	 *
+	 * Table:     taobao_trade
+	 * Column:    buyer_nick
+	 * Nullable:  true
 	 */
 	private String buyerNick;
 
 	/**
 	 * 买家支付宝账号
-	 * Database column taobao_trade.buyer_alipay_no
+	 *
+	 * Table:     taobao_trade
+	 * Column:    buyer_alipay_no
+	 * Nullable:  true
 	 */
 	private String buyerAlipayNo;
 
 	/**
 	 * 支付金额
-	 * Database column taobao_trade.payment
+	 *
+	 * Table:     taobao_trade
+	 * Column:    payment
+	 * Nullable:  true
 	 */
 	private Double payment;
 
 	/**
 	 * 物流信息跟踪
-	 * Database column taobao_trade.delivery_track
+	 *
+	 * Table:     taobao_trade
+	 * Column:    delivery_track
+	 * Nullable:  true
 	 */
 	private String deliveryTrack;
 
 	/**
 	 * 业务处理时间
-	 * Database column taobao_trade.last_update_time
+	 *
+	 * Table:     taobao_trade
+	 * Column:    last_update_time
+	 * Nullable:  true
 	 */
 	private Date lastUpdateTime;
 
 	/**
 	 * 备注(本地, 不是淘宝提供的)
-	 * Database column taobao_trade.note
+	 *
+	 * Table:     taobao_trade
+	 * Column:    note
+	 * Nullable:  true
 	 */
 	private String note;
 
 	/**
 	 * 订单详细, JSON 格式
-	 * Database column taobao_trade.orders
+	 *
+	 * Table:     taobao_trade
+	 * Column:    orders
+	 * Nullable:  true
 	 */
 	private String orders;
 
 	/**
 	 * 主键
-	 * This method returns the value of the database column taobao_trade.id
 	 *
-	 * @return the value of taobao_trade.id
+	 * Table:     taobao_trade
+	 * Column:    id
+	 * Nullable:  false
 	 */
 	public Long getId() {
 		return id;
@@ -104,9 +144,10 @@ public class TaobaoTrade extends BaseEntity {
 
 	/**
 	 * 主键
-	 * Database column taobao_trade.id
 	 *
-	 * @param id the value for taobao_trade.id
+	 * Table:     taobao_trade
+	 * Column:    id
+	 * Nullable:  false
 	 */
 	public void setId(Long id) {
 		this.id = id;
@@ -114,9 +155,10 @@ public class TaobaoTrade extends BaseEntity {
 
 	/**
 	 * 淘宝订单信息
-	 * This method returns the value of the database column taobao_trade.tid
 	 *
-	 * @return the value of taobao_trade.tid
+	 * Table:     taobao_trade
+	 * Column:    tid
+	 * Nullable:  true
 	 */
 	public Long getTid() {
 		return tid;
@@ -124,9 +166,10 @@ public class TaobaoTrade extends BaseEntity {
 
 	/**
 	 * 淘宝订单信息
-	 * Database column taobao_trade.tid
 	 *
-	 * @param tid the value for taobao_trade.tid
+	 * Table:     taobao_trade
+	 * Column:    tid
+	 * Nullable:  true
 	 */
 	public void setTid(Long tid) {
 		this.tid = tid;
@@ -134,9 +177,10 @@ public class TaobaoTrade extends BaseEntity {
 
 	/**
 	 * 授权信息id
-	 * This method returns the value of the database column taobao_trade.auth_id
 	 *
-	 * @return the value of taobao_trade.auth_id
+	 * Table:     taobao_trade
+	 * Column:    auth_id
+	 * Nullable:  true
 	 */
 	public Long getAuthId() {
 		return authId;
@@ -144,9 +188,10 @@ public class TaobaoTrade extends BaseEntity {
 
 	/**
 	 * 授权信息id
-	 * Database column taobao_trade.auth_id
 	 *
-	 * @param authId the value for taobao_trade.auth_id
+	 * Table:     taobao_trade
+	 * Column:    auth_id
+	 * Nullable:  true
 	 */
 	public void setAuthId(Long authId) {
 		this.authId = authId;
@@ -154,9 +199,10 @@ public class TaobaoTrade extends BaseEntity {
 
 	/**
 	 * 运单号
-	 * This method returns the value of the database column taobao_trade.out_sid
 	 *
-	 * @return the value of taobao_trade.out_sid
+	 * Table:     taobao_trade
+	 * Column:    out_sid
+	 * Nullable:  true
 	 */
 	public String getOutSid() {
 		return outSid;
@@ -164,9 +210,10 @@ public class TaobaoTrade extends BaseEntity {
 
 	/**
 	 * 运单号
-	 * Database column taobao_trade.out_sid
 	 *
-	 * @param outSid the value for taobao_trade.out_sid
+	 * Table:     taobao_trade
+	 * Column:    out_sid
+	 * Nullable:  true
 	 */
 	public void setOutSid(String outSid) {
 		this.outSid = outSid;
@@ -174,9 +221,10 @@ public class TaobaoTrade extends BaseEntity {
 
 	/**
 	 * 物流公司
-	 * This method returns the value of the database column taobao_trade.company_name
 	 *
-	 * @return the value of taobao_trade.company_name
+	 * Table:     taobao_trade
+	 * Column:    company_name
+	 * Nullable:  true
 	 */
 	public String getCompanyName() {
 		return companyName;
@@ -184,9 +232,10 @@ public class TaobaoTrade extends BaseEntity {
 
 	/**
 	 * 物流公司
-	 * Database column taobao_trade.company_name
 	 *
-	 * @param companyName the value for taobao_trade.company_name
+	 * Table:     taobao_trade
+	 * Column:    company_name
+	 * Nullable:  true
 	 */
 	public void setCompanyName(String companyName) {
 		this.companyName = companyName;
@@ -194,9 +243,10 @@ public class TaobaoTrade extends BaseEntity {
 
 	/**
 	 * 物流信息状态, 订单的物流状态 * 等候发送给物流公司 *已提交给物流公司,等待物流公司接单 *已经确认消息接收，等待物流公司接单 *物流公司已接单 *物流公司不接单 *物流公司揽收失败 *物流公司揽收成功 *签收失败 *对方已签收 *对方拒绝签收
-	 * This method returns the value of the database column taobao_trade.out_status
 	 *
-	 * @return the value of taobao_trade.out_status
+	 * Table:     taobao_trade
+	 * Column:    out_status
+	 * Nullable:  true
 	 */
 	public String getOutStatus() {
 		return outStatus;
@@ -204,9 +254,10 @@ public class TaobaoTrade extends BaseEntity {
 
 	/**
 	 * 物流信息状态, 订单的物流状态 * 等候发送给物流公司 *已提交给物流公司,等待物流公司接单 *已经确认消息接收，等待物流公司接单 *物流公司已接单 *物流公司不接单 *物流公司揽收失败 *物流公司揽收成功 *签收失败 *对方已签收 *对方拒绝签收
-	 * Database column taobao_trade.out_status
 	 *
-	 * @param outStatus the value for taobao_trade.out_status
+	 * Table:     taobao_trade
+	 * Column:    out_status
+	 * Nullable:  true
 	 */
 	public void setOutStatus(String outStatus) {
 		this.outStatus = outStatus;
@@ -214,9 +265,10 @@ public class TaobaoTrade extends BaseEntity {
 
 	/**
 	 * 买家昵称
-	 * This method returns the value of the database column taobao_trade.buyer_nick
 	 *
-	 * @return the value of taobao_trade.buyer_nick
+	 * Table:     taobao_trade
+	 * Column:    buyer_nick
+	 * Nullable:  true
 	 */
 	public String getBuyerNick() {
 		return buyerNick;
@@ -224,9 +276,10 @@ public class TaobaoTrade extends BaseEntity {
 
 	/**
 	 * 买家昵称
-	 * Database column taobao_trade.buyer_nick
 	 *
-	 * @param buyerNick the value for taobao_trade.buyer_nick
+	 * Table:     taobao_trade
+	 * Column:    buyer_nick
+	 * Nullable:  true
 	 */
 	public void setBuyerNick(String buyerNick) {
 		this.buyerNick = buyerNick;
@@ -234,9 +287,10 @@ public class TaobaoTrade extends BaseEntity {
 
 	/**
 	 * 买家支付宝账号
-	 * This method returns the value of the database column taobao_trade.buyer_alipay_no
 	 *
-	 * @return the value of taobao_trade.buyer_alipay_no
+	 * Table:     taobao_trade
+	 * Column:    buyer_alipay_no
+	 * Nullable:  true
 	 */
 	public String getBuyerAlipayNo() {
 		return buyerAlipayNo;
@@ -244,9 +298,10 @@ public class TaobaoTrade extends BaseEntity {
 
 	/**
 	 * 买家支付宝账号
-	 * Database column taobao_trade.buyer_alipay_no
 	 *
-	 * @param buyerAlipayNo the value for taobao_trade.buyer_alipay_no
+	 * Table:     taobao_trade
+	 * Column:    buyer_alipay_no
+	 * Nullable:  true
 	 */
 	public void setBuyerAlipayNo(String buyerAlipayNo) {
 		this.buyerAlipayNo = buyerAlipayNo;
@@ -254,9 +309,10 @@ public class TaobaoTrade extends BaseEntity {
 
 	/**
 	 * 支付金额
-	 * This method returns the value of the database column taobao_trade.payment
 	 *
-	 * @return the value of taobao_trade.payment
+	 * Table:     taobao_trade
+	 * Column:    payment
+	 * Nullable:  true
 	 */
 	public Double getPayment() {
 		return payment;
@@ -264,9 +320,10 @@ public class TaobaoTrade extends BaseEntity {
 
 	/**
 	 * 支付金额
-	 * Database column taobao_trade.payment
 	 *
-	 * @param payment the value for taobao_trade.payment
+	 * Table:     taobao_trade
+	 * Column:    payment
+	 * Nullable:  true
 	 */
 	public void setPayment(Double payment) {
 		this.payment = payment;
@@ -274,9 +331,10 @@ public class TaobaoTrade extends BaseEntity {
 
 	/**
 	 * 物流信息跟踪
-	 * This method returns the value of the database column taobao_trade.delivery_track
 	 *
-	 * @return the value of taobao_trade.delivery_track
+	 * Table:     taobao_trade
+	 * Column:    delivery_track
+	 * Nullable:  true
 	 */
 	public String getDeliveryTrack() {
 		return deliveryTrack;
@@ -284,9 +342,10 @@ public class TaobaoTrade extends BaseEntity {
 
 	/**
 	 * 物流信息跟踪
-	 * Database column taobao_trade.delivery_track
 	 *
-	 * @param deliveryTrack the value for taobao_trade.delivery_track
+	 * Table:     taobao_trade
+	 * Column:    delivery_track
+	 * Nullable:  true
 	 */
 	public void setDeliveryTrack(String deliveryTrack) {
 		this.deliveryTrack = deliveryTrack;
@@ -294,9 +353,10 @@ public class TaobaoTrade extends BaseEntity {
 
 	/**
 	 * 业务处理时间
-	 * This method returns the value of the database column taobao_trade.last_update_time
 	 *
-	 * @return the value of taobao_trade.last_update_time
+	 * Table:     taobao_trade
+	 * Column:    last_update_time
+	 * Nullable:  true
 	 */
 	public Date getLastUpdateTime() {
 		return lastUpdateTime;
@@ -304,9 +364,10 @@ public class TaobaoTrade extends BaseEntity {
 
 	/**
 	 * 业务处理时间
-	 * Database column taobao_trade.last_update_time
 	 *
-	 * @param lastUpdateTime the value for taobao_trade.last_update_time
+	 * Table:     taobao_trade
+	 * Column:    last_update_time
+	 * Nullable:  true
 	 */
 	public void setLastUpdateTime(Date lastUpdateTime) {
 		this.lastUpdateTime = lastUpdateTime;
@@ -314,9 +375,10 @@ public class TaobaoTrade extends BaseEntity {
 
 	/**
 	 * 备注(本地, 不是淘宝提供的)
-	 * This method returns the value of the database column taobao_trade.note
 	 *
-	 * @return the value of taobao_trade.note
+	 * Table:     taobao_trade
+	 * Column:    note
+	 * Nullable:  true
 	 */
 	public String getNote() {
 		return note;
@@ -324,9 +386,10 @@ public class TaobaoTrade extends BaseEntity {
 
 	/**
 	 * 备注(本地, 不是淘宝提供的)
-	 * Database column taobao_trade.note
 	 *
-	 * @param note the value for taobao_trade.note
+	 * Table:     taobao_trade
+	 * Column:    note
+	 * Nullable:  true
 	 */
 	public void setNote(String note) {
 		this.note = note;
@@ -334,9 +397,10 @@ public class TaobaoTrade extends BaseEntity {
 
 	/**
 	 * 订单详细, JSON 格式
-	 * This method returns the value of the database column taobao_trade.orders
 	 *
-	 * @return the value of taobao_trade.orders
+	 * Table:     taobao_trade
+	 * Column:    orders
+	 * Nullable:  true
 	 */
 	public String getOrders() {
 		return orders;
@@ -344,9 +408,10 @@ public class TaobaoTrade extends BaseEntity {
 
 	/**
 	 * 订单详细, JSON 格式
-	 * Database column taobao_trade.orders
 	 *
-	 * @param orders the value for taobao_trade.orders
+	 * Table:     taobao_trade
+	 * Column:    orders
+	 * Nullable:  true
 	 */
 	public void setOrders(String orders) {
 		this.orders = orders;

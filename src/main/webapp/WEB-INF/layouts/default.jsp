@@ -1,5 +1,4 @@
 <%@ page contentType="text/html;charset=UTF-8"%>
-<%@ taglib prefix="sitemesh" uri="http://www.opensymphony.com/sitemesh/decorator" %>
 <%@ include file="../views/tag.jsp"%>
 <!DOCTYPE HTML>
 <html>
@@ -8,6 +7,8 @@
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 <meta name="copyright" content="Copyright (C) 爱莎海   design in tianjin by yinheli @2012 All rights reserved." />
+<link rel="stylesheet" type="text/css" href="${ctx}/static/theme/default/style.css" media="all">
+<link rel="stylesheet" type="text/css" href="${ctx}/static/jquery-ui/css/ui-lightness/jquery-ui-1.8.21.custom.css" media="all">
 <sitemesh:head />
 </head>
 <body>
@@ -37,5 +38,7 @@
 		
 		<%@ include file="footer.jsp" %>
 	</div>
+<!-- javascript load here -->
+<script type="text/javascript" src="${ctx}/static/jquery/jquery-1.7.2.min.js"></script><sitemesh:getProperty property="page.javascript" />
 </body>
 </html>

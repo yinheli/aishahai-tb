@@ -1,7 +1,5 @@
 package com.nzonly.tb.taobao;
 
-import javax.annotation.PostConstruct;
-
 import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.commons.lang.builder.ToStringStyle;
 import org.slf4j.Logger;
@@ -34,18 +32,10 @@ public class TaobaoService {
 	@Value("${app.secret}")
 	protected String appSecret;
 	
-	protected TaobaoClient client;
+	protected final TaobaoClient client = new DefaultTaobaoClient(appResetUri, appKey, appSecret);
 	
 	@Autowired
 	protected TaobaoTaskService taskService;
-	
-//	protected trades
-	
-	@PostConstruct
-	@SuppressWarnings("unused")
-	private void init() {
-		client = new DefaultTaobaoClient(appResetUri, appKey, appSecret);
-	}
 	
 	protected String dump(Object obj) {
 		return ToStringBuilder.reflectionToString(obj, ToStringStyle.MULTI_LINE_STYLE);

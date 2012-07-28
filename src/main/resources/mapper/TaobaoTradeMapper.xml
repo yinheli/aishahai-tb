@@ -2,30 +2,63 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="TaobaoTrade">
 	<resultMap id="BaseResultMap" type="com.nzonly.tb.entity.TaobaoTrade">
+
+		<!-- 主键 -->
 		<id column="id" property="id" jdbcType="BIGINT" />
+
+		<!-- 淘宝订单信息 -->
 		<result column="tid" property="tid" jdbcType="BIGINT" />
+
+		<!-- 授权信息id -->
 		<result column="auth_id" property="authId" jdbcType="BIGINT" />
+
+		<!-- 运单号 -->
 		<result column="out_sid" property="outSid" jdbcType="VARCHAR" />
+
+		<!-- 物流公司 -->
 		<result column="company_name" property="companyName" jdbcType="VARCHAR" />
+
+		<!-- 物流信息状态, 订单的物流状态 * 等候发送给物流公司 *已提交给物流公司,等待物流公司接单 *已经确认消息接收，等待物流公司接单 
+			*物流公司已接单 *物流公司不接单 *物流公司揽收失败 *物流公司揽收成功 *签收失败 *对方已签收 *对方拒绝签收 -->
 		<result column="out_status" property="outStatus" jdbcType="VARCHAR" />
+
+		<!-- 买家昵称 -->
 		<result column="buyer_nick" property="buyerNick" jdbcType="VARCHAR" />
-		<result column="buyer_alipay_no" property="buyerAlipayNo" jdbcType="VARCHAR" />
+
+		<!-- 买家支付宝账号 -->
+		<result column="buyer_alipay_no" property="buyerAlipayNo"
+			jdbcType="VARCHAR" />
+
+		<!-- 支付金额 -->
 		<result column="payment" property="payment" jdbcType="DOUBLE" />
-		<result column="delivery_track" property="deliveryTrack" jdbcType="VARCHAR" />
-		<result column="last_update_time" property="lastUpdateTime" jdbcType="TIMESTAMP" />
+
+		<!-- 物流信息跟踪 -->
+		<result column="delivery_track" property="deliveryTrack"
+			jdbcType="VARCHAR" />
+
+		<!-- 业务处理时间 -->
+		<result column="last_update_time" property="lastUpdateTime"
+			jdbcType="TIMESTAMP" />
+
+		<!-- 备注(本地, 不是淘宝提供的) -->
 		<result column="note" property="note" jdbcType="VARCHAR" />
 	</resultMap>
-	<resultMap id="ResultMapWithBLOBs" type="com.nzonly.tb.entity.TaobaoTrade" extends="BaseResultMap">
+	<resultMap id="ResultMapWithBLOBs" type="com.nzonly.tb.entity.TaobaoTrade"
+		extends="BaseResultMap">
+
+		<!-- 订单详细, JSON 格式 -->
 		<result column="orders" property="orders" jdbcType="LONGVARCHAR" />
 	</resultMap>
 	<sql id="Base_Column_List">
-		id, tid, auth_id, out_sid, company_name, out_status, buyer_nick, buyer_alipay_no,
+		id, tid, auth_id, out_sid, company_name, out_status, buyer_nick,
+		buyer_alipay_no,
 		payment, delivery_track, last_update_time, note
 	</sql>
 	<sql id="Blob_Column_List">
 		orders
 	</sql>
-	<select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Long">
+	<select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs"
+		parameterType="java.lang.Long">
 		select
 		<include refid="Base_Column_List" />
 		,
@@ -37,19 +70,21 @@
 		delete from taobao_trade
 		where id = #{id,jdbcType=BIGINT}
 	</delete>
-	<insert id="insert" parameterType="com.nzonly.tb.entity.TaobaoTrade">
+	<insert id="insert">
 		insert into taobao_trade (id, tid, auth_id,
 		out_sid, company_name, out_status,
 		buyer_nick, buyer_alipay_no, payment,
 		delivery_track, last_update_time, note,
 		orders)
-		values (#{id,jdbcType=BIGINT}, #{tid,jdbcType=BIGINT}, #{authId,jdbcType=BIGINT},
+		values (#{id,jdbcType=BIGINT}, #{tid,jdbcType=BIGINT},
+		#{authId,jdbcType=BIGINT},
 		#{outSid,jdbcType=VARCHAR}, #{companyName,jdbcType=VARCHAR}, #{outStatus,jdbcType=VARCHAR},
-		#{buyerNick,jdbcType=VARCHAR}, #{buyerAlipayNo,jdbcType=VARCHAR}, #{payment,jdbcType=DOUBLE},
+		#{buyerNick,jdbcType=VARCHAR}, #{buyerAlipayNo,jdbcType=VARCHAR},
+		#{payment,jdbcType=DOUBLE},
 		#{deliveryTrack,jdbcType=VARCHAR}, #{lastUpdateTime,jdbcType=TIMESTAMP}, #{note,jdbcType=VARCHAR},
 		#{orders,jdbcType=LONGVARCHAR})
 	</insert>
-	<insert id="insertSelective" parameterType="com.nzonly.tb.entity.TaobaoTrade">
+	<insert id="insertSelective">
 		insert into taobao_trade
 		<trim prefix="(" suffix=")" suffixOverrides=",">
 			<if test="id != null">
@@ -134,7 +169,7 @@
 			</if>
 		</trim>
 	</insert>
-	<update id="updateByPrimaryKeySelective" parameterType="com.nzonly.tb.entity.TaobaoTrade">
+	<update id="updateByPrimaryKeySelective">
 		update taobao_trade
 		<set>
 			<if test="tid != null">
@@ -176,7 +211,7 @@
 		</set>
 		where id = #{id,jdbcType=BIGINT}
 	</update>
-	<update id="updateByPrimaryKeyWithBLOBs" parameterType="com.nzonly.tb.entity.TaobaoTrade">
+	<update id="updateByPrimaryKeyWithBLOBs">
 		update taobao_trade
 		set tid = #{tid,jdbcType=BIGINT},
 		auth_id = #{authId,jdbcType=BIGINT},
@@ -192,7 +227,7 @@
 		orders = #{orders,jdbcType=LONGVARCHAR}
 		where id = #{id,jdbcType=BIGINT}
 	</update>
-	<update id="updateByPrimaryKey" parameterType="com.nzonly.tb.entity.TaobaoTrade">
+	<update id="updateByPrimaryKey">
 		update taobao_trade
 		set tid = #{tid,jdbcType=BIGINT},
 		auth_id = #{authId,jdbcType=BIGINT},
@@ -207,4 +242,11 @@
 		note = #{note,jdbcType=VARCHAR}
 		where id = #{id,jdbcType=BIGINT}
 	</update>
+
+	<!-- ### 以上代码由MBG + CommentPlugin自动生成, 生成时间: 2012-07-28 13:29:49 ### -->
+
+	<select id="getByPage" resultMap="BaseResultMap">
+		select sql_calc_found_rows *
+		from taobao_trade order by id desc limit ${offset}, ${size}
+	</select>
 </mapper>

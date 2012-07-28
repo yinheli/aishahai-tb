@@ -2,20 +2,41 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="TaobaoTask">
 	<resultMap id="BaseResultMap" type="com.nzonly.tb.entity.TaobaoTask">
+
+		<!-- 异步任务id。创建异步任务时返回的任务id号 -->
 		<id column="task_id" property="taskId" jdbcType="BIGINT" />
+
+		<!-- 任务创建时间 -->
 		<result column="created" property="created" jdbcType="TIMESTAMP" />
+
+		<!-- 任务提交时的参数 -->
 		<result column="params" property="params" jdbcType="VARCHAR" />
+
+		<!-- 响应 body -->
 		<result column="body" property="body" jdbcType="VARCHAR" />
+
+		<!-- 此任务是由哪个api产生的 -->
 		<result column="method" property="method" jdbcType="VARCHAR" />
+
+		<!-- 异步任务处理状态。new（还未开始处理），doing（处理中），done（处理结束）。 -->
 		<result column="status" property="status" jdbcType="VARCHAR" />
+
+		<!-- 大任务结果下载地址。当创建的认任务是大数据量的任务时，获取结果会返回此字段，同时subtasks列表会为空。 -->
 		<result column="download_url" property="downloadUrl" jdbcType="VARCHAR" />
+
+		<!-- 下载文件的MD5校验码，通过此校验码可以检查下载的文件是否是完整的 -->
 		<result column="check_code" property="checkCode" jdbcType="VARCHAR" />
-		<result column="last_check_time" property="lastCheckTime" jdbcType="TIMESTAMP" />
+
+		<!-- 任务最后一次检查时间 -->
+		<result column="last_check_time" property="lastCheckTime"
+			jdbcType="TIMESTAMP" />
 	</resultMap>
 	<sql id="Base_Column_List">
-		task_id, created, params, body, method, status, download_url, check_code, last_check_time
+		task_id, created, params, body, method, status, download_url, check_code,
+		last_check_time
 	</sql>
-	<select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long">
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
+		parameterType="java.lang.Long">
 		select
 		<include refid="Base_Column_List" />
 		from taobao_task
@@ -25,17 +46,19 @@
 		delete from taobao_task
 		where task_id = #{taskId,jdbcType=BIGINT}
 	</delete>
-	<insert id="insert" parameterType="com.nzonly.tb.entity.TaobaoTask">
+	<insert id="insert">
 		insert into taobao_task (task_id, created, params,
 		body, method, status,
 		download_url, check_code, last_check_time
 		)
-		values (#{taskId,jdbcType=BIGINT}, #{created,jdbcType=TIMESTAMP}, #{params,jdbcType=VARCHAR},
+		values (#{taskId,jdbcType=BIGINT}, #{created,jdbcType=TIMESTAMP},
+		#{params,jdbcType=VARCHAR},
 		#{body,jdbcType=VARCHAR}, #{method,jdbcType=VARCHAR}, #{status,jdbcType=VARCHAR},
-		#{downloadUrl,jdbcType=VARCHAR}, #{checkCode,jdbcType=VARCHAR}, #{lastCheckTime,jdbcType=TIMESTAMP}
+		#{downloadUrl,jdbcType=VARCHAR}, #{checkCode,jdbcType=VARCHAR},
+		#{lastCheckTime,jdbcType=TIMESTAMP}
 		)
 	</insert>
-	<insert id="insertSelective" parameterType="com.nzonly.tb.entity.TaobaoTask">
+	<insert id="insertSelective">
 		insert into taobao_task
 		<trim prefix="(" suffix=")" suffixOverrides=",">
 			<if test="taskId != null">
@@ -96,7 +119,7 @@
 			</if>
 		</trim>
 	</insert>
-	<update id="updateByPrimaryKeySelective" parameterType="com.nzonly.tb.entity.TaobaoTask">
+	<update id="updateByPrimaryKeySelective">
 		update taobao_task
 		<set>
 			<if test="created != null">
@@ -126,7 +149,7 @@
 		</set>
 		where task_id = #{taskId,jdbcType=BIGINT}
 	</update>
-	<update id="updateByPrimaryKey" parameterType="com.nzonly.tb.entity.TaobaoTask">
+	<update id="updateByPrimaryKey">
 		update taobao_task
 		set created = #{created,jdbcType=TIMESTAMP},
 		params = #{params,jdbcType=VARCHAR},
@@ -139,12 +162,15 @@
 		where task_id = #{taskId,jdbcType=BIGINT}
 	</update>
 
-	<!-- ######################### -->
+	<!-- ### 以上代码由MBG + CommentPlugin自动生成, 生成时间: 2012-07-28 13:29:49 ### -->
+
 	<select id="countTaskByTaskId" resultType="long">
-		select count(task_id) from taobao_task where task_id = #{taskId,jdbcType=BIGINT}
+		select count(task_id)
+		from taobao_task where task_id = #{taskId,jdbcType=BIGINT}
 	</select>
 
 	<select id="getByPage" resultMap="BaseResultMap">
-		select sql_calc_found_rows * from taobao_task order by task_id desc limit ${offset}, ${size}
+		select sql_calc_found_rows *
+		from taobao_task order by task_id desc
 	</select>
 </mapper>

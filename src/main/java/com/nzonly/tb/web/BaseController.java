@@ -1,5 +1,8 @@
 package com.nzonly.tb.web;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 /**
  * @author yinheli
  * @link yinheli@gmail.com
@@ -7,5 +10,7 @@ package com.nzonly.tb.web;
  * @version V1.0
  */
 public class BaseController {
+	
+	protected final Logger log = LoggerFactory.getLogger(getClass());
 
 }

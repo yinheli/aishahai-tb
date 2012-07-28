@@ -2,7 +2,6 @@ package com.nzonly.tb.quartz;
 
 import org.junit.Test;
 import org.quartz.Scheduler;
-import org.quartz.SchedulerException;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.nzonly.tb.test.BaseTestNoWeb;

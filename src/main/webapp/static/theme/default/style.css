@@ -1,0 +1,41 @@
+/* reset START */
+body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,form,fieldset,input,textarea,blockquote,p,fieldset
+	{
+	margin: 0;
+	padding: 0;
+}
+
+body {
+	font-size: 12px;
+	font-family: "Microsoft Yahei", Tahoma, Arial, Verdana, sans-serif;
+	color: #000;
+	background: #F9F9F9;
+}
+
+img {
+	border: 0;
+}
+
+blockquote,pre {
+	margin: 10px 0;
+	padding: 8px 10px 8px 36px;
+	border: 1px solid #CCC;
+}
+
+code {
+	padding: 1px 3px 2px;
+	font-family: "courier new", courier, monospace;
+	color: #666;
+	background: #F1F1F1;
+}
+
+kbd {
+	padding: 2px 5px;
+	border: 1px solid #DDD;
+	border-bottom-color: #999;
+	border-left-color: #999;
+	font-family: Consolas, "andale mono", "lucida console", "courier new",
+		monospace;
+	background: #EEE;
+}
+/* reset END */

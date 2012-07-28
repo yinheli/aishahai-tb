@@ -66,11 +66,11 @@ public class ShiroDbRealm extends AuthorizingRealm {
 		if (token instanceof OpenAuthenticationToken) {
 			HashPassword pass = encrypt(OpenAuthenticationToken.EMPTY_PASS);
 			byte[] salt = Encodes.decodeHex(pass.salt);
-			return new SimpleAuthenticationInfo(new ShiroUser(user.getUid(), user.getNickname()), pass.password,
+			return new SimpleAuthenticationInfo(new ShiroUser(user.getUid(), user.getNickname(), user.getAuthId()), pass.password,
 					ByteSource.Util.bytes(salt), getName());
 		} else {
 			byte[] salt = Encodes.decodeHex(user.getSalt());
-			return new SimpleAuthenticationInfo(new ShiroUser(user.getUid(), user.getNickname()), user.getPwd(),
+			return new SimpleAuthenticationInfo(new ShiroUser(user.getUid(), user.getNickname(), user.getAuthId()), user.getPwd(),
 					ByteSource.Util.bytes(salt), getName());
 		}
 	}
@@ -87,7 +87,7 @@ public class ShiroDbRealm extends AuthorizingRealm {
 	 * 更新用户授权信息缓存.
 	 */
 	public void clearCachedAuthorizationInfo(String principal) {
-		SimplePrincipalCollection principals = new SimplePrincipalCollection(new ShiroUser(principal, null), getName());
+		SimplePrincipalCollection principals = new SimplePrincipalCollection(new ShiroUser(principal, null, null), getName());
 		clearCachedAuthorizationInfo(principals);
 	}
 	
@@ -118,10 +118,12 @@ public class ShiroDbRealm extends AuthorizingRealm {
 		private static final long serialVersionUID = -1373760761780840081L;
 		public String loginName;
 		public String name;
+		public Long authId;
 
-		public ShiroUser(String loginName, String name) {
+		public ShiroUser(String loginName, String name, Long authId) {
 			this.loginName = loginName;
 			this.name = name;
+			this.authId = authId;
 		}
 
 		public String getName() {
@@ -136,10 +138,6 @@ public class ShiroDbRealm extends AuthorizingRealm {
 			return loginName;
 		}
 
-	}
-	
-	public static void main(String[] args) {
-		System.out.println(ToStringBuilder.reflectionToString(encrypt("123qwe")));
 	}
 
 }

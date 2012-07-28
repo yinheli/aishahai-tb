@@ -1,12 +1,12 @@
 package com.nzonly.tb.persistence;
 
 import java.io.Serializable;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.List;
 
 import org.mybatis.spring.support.SqlSessionDaoSupport;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Component;
 
 /**
@@ -106,30 +106,34 @@ public class BaseDao extends SqlSessionDaoSupport {
 		return getSqlSession().delete(key, id);
 	}
 
-	public long getTotalCount() {
-		ResultSet rs = null;
-		PreparedStatement st = null;
-		try {
-			st = getSqlSession().getConnection().prepareStatement("select found_rows()");
-			st.execute();
-			rs = st.getResultSet();
-			rs.next();
-			return rs.getLong(1);
-		} catch (SQLException e) {
-			throw new RuntimeException(e);
-		} finally {
-			try {
-				if (rs != null) {
-					rs.close();
-				}
-				if (st != null) {
-					st.close();
-				}
-			} catch (Exception e) {
-				// ignore
-			}
-		}
-
+	/**
+	 * 分页查询
+	 * 
+	 * @param statementId Mapper id
+	 * @param pageRequest 分页请求
+	 * @param param 参数
+	 * @return
+	 * @author yinheli
+	 * @param param2 
+	 * @date 2012-7-26 下午2:59:07
+	 */
+	public <T> Page<T> getByPage(String statementId, PageRequest pageRequest, Object param) {
+		PageRowBounds rb = new PageRowBounds(pageRequest.getOffset(), pageRequest.getPageSize());
+		List<T> list = getSqlSession().selectList(statementId, param, rb);
+		return new PageImpl<T>(list, pageRequest, rb.getTotal());
+	}
+	
+	/**
+	 * 分页查询
+	 * 
+	 * @param statementId
+	 * @param pageRequest
+	 * @return
+	 * @author yinheli
+	 * @date 2012-7-27 上午9:39:30
+	 */
+	public <T> Page<T> getByPage(String statementId, PageRequest pageRequest) {
+		return getByPage(statementId, pageRequest, null);
 	}
 
 }

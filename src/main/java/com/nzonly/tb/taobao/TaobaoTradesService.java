@@ -60,6 +60,12 @@ public class TaobaoTradesService extends TaobaoService {
 		req.setEndCreated(end);
 		req.setPageNo((long)pageRequest.getPageNumber());
 		req.setPageSize((long)pageRequest.getPageSize());
+		
+		// taobao default max value
+		if (req.getPageSize() > 40) {
+			req.setPageSize(40L);
+		}
+		
 		try {
 			TradesSoldGetResponse resp = client.execute(req, session);
 			if (log.isDebugEnabled()) {

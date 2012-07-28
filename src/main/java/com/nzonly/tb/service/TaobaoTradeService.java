@@ -1,10 +1,7 @@
 package com.nzonly.tb.service;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
@@ -26,8 +23,7 @@ public class TaobaoTradeService {
 	private BaseDao dao;
 	
 	public Page<TaobaoTrade> getByPage(PageRequest pageRequest) {
-		List<TaobaoTrade> list = dao.getList("TaobaoTrade.getByPage", pageRequest);
-		return new PageImpl<TaobaoTrade>(list, pageRequest, dao.getTotalCount());
+		return dao.getByPage("TaobaoTrade.getByPage", pageRequest);
 	}
 
 }

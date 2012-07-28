@@ -18,4 +18,9 @@
 		<typeAlias alias="TaobaoTrade" type="com.nzonly.tb.entity.TaobaoTrade" />
 		<typeAlias alias="User" type="com.nzonly.tb.entity.User" />
 	</typeAliases>
+	<plugins>
+		<plugin interceptor="com.nzonly.tb.persistence.PagePlugin">
+			<property name="dialect" value="MySQL"/>
+		</plugin>
+	</plugins>
 </configuration>

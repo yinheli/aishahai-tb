@@ -3,19 +3,36 @@
 <mapper namespace="User">
 	<resultMap id="BaseResultMap" type="com.nzonly.tb.entity.User">
 		<id column="id" property="id" jdbcType="INTEGER" />
+
+		<!-- 登录名 -->
 		<result column="uid" property="uid" jdbcType="VARCHAR" />
+
+		<!-- 昵称 -->
 		<result column="nickname" property="nickname" jdbcType="VARCHAR" />
+
+		<!-- 邮箱 -->
 		<result column="email" property="email" jdbcType="VARCHAR" />
+
+		<!-- 来源(渠道) 如: 淘宝,新浪微博等 -->
 		<result column="from_channel" property="fromChannel" jdbcType="VARCHAR" />
+
+		<!-- 授权信息 -->
 		<result column="auth_id" property="authId" jdbcType="BIGINT" />
+
+		<!-- 授权用户id, 如淘宝 id -->
 		<result column="auth_user_id" property="authUserId" jdbcType="VARCHAR" />
+
+		<!-- 登录密码 -->
 		<result column="pwd" property="pwd" jdbcType="VARCHAR" />
+
+		<!-- 盐值 -->
 		<result column="salt" property="salt" jdbcType="VARCHAR" />
 	</resultMap>
 	<sql id="Base_Column_List">
 		id, uid, nickname, email, from_channel, auth_id, auth_user_id, pwd, salt
 	</sql>
-	<select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
+		parameterType="java.lang.Integer">
 		select
 		<include refid="Base_Column_List" />
 		from user
@@ -25,17 +42,19 @@
 		delete from user
 		where id = #{id,jdbcType=INTEGER}
 	</delete>
-	<insert id="insert" parameterType="com.nzonly.tb.entity.User">
+	<insert id="insert">
 		insert into user (id, uid, nickname,
 		email, from_channel, auth_id,
 		auth_user_id, pwd, salt
 		)
-		values (#{id,jdbcType=INTEGER}, #{uid,jdbcType=VARCHAR}, #{nickname,jdbcType=VARCHAR},
+		values (#{id,jdbcType=INTEGER}, #{uid,jdbcType=VARCHAR},
+		#{nickname,jdbcType=VARCHAR},
 		#{email,jdbcType=VARCHAR}, #{fromChannel,jdbcType=VARCHAR}, #{authId,jdbcType=BIGINT},
-		#{authUserId,jdbcType=VARCHAR}, #{pwd,jdbcType=VARCHAR}, #{salt,jdbcType=VARCHAR}
+		#{authUserId,jdbcType=VARCHAR}, #{pwd,jdbcType=VARCHAR},
+		#{salt,jdbcType=VARCHAR}
 		)
 	</insert>
-	<insert id="insertSelective" parameterType="com.nzonly.tb.entity.User">
+	<insert id="insertSelective">
 		insert into user
 		<trim prefix="(" suffix=")" suffixOverrides=",">
 			<if test="id != null">
@@ -96,7 +115,7 @@
 			</if>
 		</trim>
 	</insert>
-	<update id="updateByPrimaryKeySelective" parameterType="com.nzonly.tb.entity.User">
+	<update id="updateByPrimaryKeySelective">
 		update user
 		<set>
 			<if test="uid != null">
@@ -126,7 +145,7 @@
 		</set>
 		where id = #{id,jdbcType=INTEGER}
 	</update>
-	<update id="updateByPrimaryKey" parameterType="com.nzonly.tb.entity.User">
+	<update id="updateByPrimaryKey">
 		update user
 		set uid = #{uid,jdbcType=VARCHAR},
 		nickname = #{nickname,jdbcType=VARCHAR},
@@ -139,13 +158,16 @@
 		where id = #{id,jdbcType=INTEGER}
 	</update>
 
-	<!-- ##################################### -->
+	<!-- ### 以上代码由MBG + CommentPlugin自动生成, 生成时间: 2012-07-28 13:29:49 ### -->
 
 	<select id="getByUid" resultMap="BaseResultMap">
-		select u.* from user u where u.uid=#{uid,jdbcType=VARCHAR}
+		select u.* from user u where
+		u.uid=#{uid,jdbcType=VARCHAR}
 	</select>
-	
+
 	<select id="getByAuthUserId" resultMap="BaseResultMap">
-		select u.* from user u where u.auth_user_id=#{authUserId,jdbcType=VARCHAR} and u.from_channel=#{from,jdbcType=VARCHAR}
+		select u.* from user u
+		where u.auth_user_id=#{authUserId,jdbcType=VARCHAR} and
+		u.from_channel=#{from,jdbcType=VARCHAR}
 	</select>
 </mapper>

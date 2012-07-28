@@ -27,7 +27,7 @@ public class TradeController extends BaseController {
 	public String index(Model model, @RequestParam(defaultValue = "1") int p) {
 		PageRequest pageRequest = new PageRequest(p - 1, Constants.PAGE_SIZE);
 		model.addAttribute("list", tradeService.getByPage(pageRequest));
-		return "index";
+		return "trade/index";
 	}
-
+	
 }
