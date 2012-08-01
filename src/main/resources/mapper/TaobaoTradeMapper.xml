@@ -15,12 +15,15 @@
 		<!-- 运单号 -->
 		<result column="out_sid" property="outSid" jdbcType="VARCHAR" />
 
-		<!-- 物流公司 -->
-		<result column="company_name" property="companyName" jdbcType="VARCHAR" />
-
 		<!-- 物流信息状态, 订单的物流状态 * 等候发送给物流公司 *已提交给物流公司,等待物流公司接单 *已经确认消息接收，等待物流公司接单 
 			*物流公司已接单 *物流公司不接单 *物流公司揽收失败 *物流公司揽收成功 *签收失败 *对方已签收 *对方拒绝签收 -->
-		<result column="out_status" property="outStatus" jdbcType="VARCHAR" />
+		<result column="cod_status" property="codStatus" jdbcType="VARCHAR" />
+
+		<!-- 卖家发货时间 -->
+		<result column="consign_time" property="consignTime" jdbcType="TIMESTAMP" />
+
+		<!-- 物流公司 -->
+		<result column="company_name" property="companyName" jdbcType="VARCHAR" />
 
 		<!-- 买家昵称 -->
 		<result column="buyer_nick" property="buyerNick" jdbcType="VARCHAR" />
@@ -31,6 +34,18 @@
 
 		<!-- 支付金额 -->
 		<result column="payment" property="payment" jdbcType="DOUBLE" />
+
+		<!-- 付款时间 -->
+		<result column="pay_time" property="payTime" jdbcType="TIMESTAMP" />
+
+		<!-- 交易创建时间 -->
+		<result column="created" property="created" jdbcType="TIMESTAMP" />
+
+		<!-- 交易状态。可选值: * TRADE_NO_CREATE_PAY(没有创建支付宝交易) * WAIT_BUYER_PAY(等待买家付款) 
+			* WAIT_SELLER_SEND_GOODS(等待卖家发货,即:买家已付款) * WAIT_BUYER_CONFIRM_GOODS(等待买家确认收货,即:卖家已发货) 
+			* TRADE_BUYER_SIGNED(买家已签收,货到付款专用) * TRADE_FINISHED(交易成功) * TRADE_CLOSED(付款以后用户退款成功，交易自动关闭) 
+			* TRADE_C -->
+		<result column="status" property="status" jdbcType="VARCHAR" />
 
 		<!-- 物流信息跟踪 -->
 		<result column="delivery_track" property="deliveryTrack"
@@ -50,9 +65,9 @@
 		<result column="orders" property="orders" jdbcType="LONGVARCHAR" />
 	</resultMap>
 	<sql id="Base_Column_List">
-		id, tid, auth_id, out_sid, company_name, out_status, buyer_nick,
-		buyer_alipay_no,
-		payment, delivery_track, last_update_time, note
+		id, tid, auth_id, out_sid, cod_status, consign_time, company_name,
+		buyer_nick, buyer_alipay_no,
+		payment, pay_time, created, status, delivery_track, last_update_time, note
 	</sql>
 	<sql id="Blob_Column_List">
 		orders
@@ -72,17 +87,20 @@
 	</delete>
 	<insert id="insert">
 		insert into taobao_trade (id, tid, auth_id,
-		out_sid, company_name, out_status,
-		buyer_nick, buyer_alipay_no, payment,
-		delivery_track, last_update_time, note,
-		orders)
+		out_sid, cod_status, consign_time,
+		company_name, buyer_nick, buyer_alipay_no,
+		payment, pay_time, created,
+		status, delivery_track, last_update_time,
+		note, orders)
 		values (#{id,jdbcType=BIGINT}, #{tid,jdbcType=BIGINT},
 		#{authId,jdbcType=BIGINT},
-		#{outSid,jdbcType=VARCHAR}, #{companyName,jdbcType=VARCHAR}, #{outStatus,jdbcType=VARCHAR},
-		#{buyerNick,jdbcType=VARCHAR}, #{buyerAlipayNo,jdbcType=VARCHAR},
-		#{payment,jdbcType=DOUBLE},
-		#{deliveryTrack,jdbcType=VARCHAR}, #{lastUpdateTime,jdbcType=TIMESTAMP}, #{note,jdbcType=VARCHAR},
-		#{orders,jdbcType=LONGVARCHAR})
+		#{outSid,jdbcType=VARCHAR}, #{codStatus,jdbcType=VARCHAR}, #{consignTime,jdbcType=TIMESTAMP},
+		#{companyName,jdbcType=VARCHAR}, #{buyerNick,jdbcType=VARCHAR},
+		#{buyerAlipayNo,jdbcType=VARCHAR},
+		#{payment,jdbcType=DOUBLE}, #{payTime,jdbcType=TIMESTAMP}, #{created,jdbcType=TIMESTAMP},
+		#{status,jdbcType=VARCHAR}, #{deliveryTrack,jdbcType=VARCHAR},
+		#{lastUpdateTime,jdbcType=TIMESTAMP},
+		#{note,jdbcType=VARCHAR}, #{orders,jdbcType=LONGVARCHAR})
 	</insert>
 	<insert id="insertSelective">
 		insert into taobao_trade
@@ -99,11 +117,14 @@
 			<if test="outSid != null">
 				out_sid,
 			</if>
+			<if test="codStatus != null">
+				cod_status,
+			</if>
+			<if test="consignTime != null">
+				consign_time,
+			</if>
 			<if test="companyName != null">
 				company_name,
-			</if>
-			<if test="outStatus != null">
-				out_status,
 			</if>
 			<if test="buyerNick != null">
 				buyer_nick,
@@ -113,6 +134,15 @@
 			</if>
 			<if test="payment != null">
 				payment,
+			</if>
+			<if test="payTime != null">
+				pay_time,
+			</if>
+			<if test="created != null">
+				created,
+			</if>
+			<if test="status != null">
+				status,
 			</if>
 			<if test="deliveryTrack != null">
 				delivery_track,
@@ -140,11 +170,14 @@
 			<if test="outSid != null">
 				#{outSid,jdbcType=VARCHAR},
 			</if>
+			<if test="codStatus != null">
+				#{codStatus,jdbcType=VARCHAR},
+			</if>
+			<if test="consignTime != null">
+				#{consignTime,jdbcType=TIMESTAMP},
+			</if>
 			<if test="companyName != null">
 				#{companyName,jdbcType=VARCHAR},
-			</if>
-			<if test="outStatus != null">
-				#{outStatus,jdbcType=VARCHAR},
 			</if>
 			<if test="buyerNick != null">
 				#{buyerNick,jdbcType=VARCHAR},
@@ -154,6 +187,15 @@
 			</if>
 			<if test="payment != null">
 				#{payment,jdbcType=DOUBLE},
+			</if>
+			<if test="payTime != null">
+				#{payTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="created != null">
+				#{created,jdbcType=TIMESTAMP},
+			</if>
+			<if test="status != null">
+				#{status,jdbcType=VARCHAR},
 			</if>
 			<if test="deliveryTrack != null">
 				#{deliveryTrack,jdbcType=VARCHAR},
@@ -181,11 +223,14 @@
 			<if test="outSid != null">
 				out_sid = #{outSid,jdbcType=VARCHAR},
 			</if>
+			<if test="codStatus != null">
+				cod_status = #{codStatus,jdbcType=VARCHAR},
+			</if>
+			<if test="consignTime != null">
+				consign_time = #{consignTime,jdbcType=TIMESTAMP},
+			</if>
 			<if test="companyName != null">
 				company_name = #{companyName,jdbcType=VARCHAR},
-			</if>
-			<if test="outStatus != null">
-				out_status = #{outStatus,jdbcType=VARCHAR},
 			</if>
 			<if test="buyerNick != null">
 				buyer_nick = #{buyerNick,jdbcType=VARCHAR},
@@ -195,6 +240,15 @@
 			</if>
 			<if test="payment != null">
 				payment = #{payment,jdbcType=DOUBLE},
+			</if>
+			<if test="payTime != null">
+				pay_time = #{payTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="created != null">
+				created = #{created,jdbcType=TIMESTAMP},
+			</if>
+			<if test="status != null">
+				status = #{status,jdbcType=VARCHAR},
 			</if>
 			<if test="deliveryTrack != null">
 				delivery_track = #{deliveryTrack,jdbcType=VARCHAR},
@@ -216,11 +270,15 @@
 		set tid = #{tid,jdbcType=BIGINT},
 		auth_id = #{authId,jdbcType=BIGINT},
 		out_sid = #{outSid,jdbcType=VARCHAR},
+		cod_status = #{codStatus,jdbcType=VARCHAR},
+		consign_time = #{consignTime,jdbcType=TIMESTAMP},
 		company_name = #{companyName,jdbcType=VARCHAR},
-		out_status = #{outStatus,jdbcType=VARCHAR},
 		buyer_nick = #{buyerNick,jdbcType=VARCHAR},
 		buyer_alipay_no = #{buyerAlipayNo,jdbcType=VARCHAR},
 		payment = #{payment,jdbcType=DOUBLE},
+		pay_time = #{payTime,jdbcType=TIMESTAMP},
+		created = #{created,jdbcType=TIMESTAMP},
+		status = #{status,jdbcType=VARCHAR},
 		delivery_track = #{deliveryTrack,jdbcType=VARCHAR},
 		last_update_time = #{lastUpdateTime,jdbcType=TIMESTAMP},
 		note = #{note,jdbcType=VARCHAR},
@@ -232,21 +290,30 @@
 		set tid = #{tid,jdbcType=BIGINT},
 		auth_id = #{authId,jdbcType=BIGINT},
 		out_sid = #{outSid,jdbcType=VARCHAR},
+		cod_status = #{codStatus,jdbcType=VARCHAR},
+		consign_time = #{consignTime,jdbcType=TIMESTAMP},
 		company_name = #{companyName,jdbcType=VARCHAR},
-		out_status = #{outStatus,jdbcType=VARCHAR},
 		buyer_nick = #{buyerNick,jdbcType=VARCHAR},
 		buyer_alipay_no = #{buyerAlipayNo,jdbcType=VARCHAR},
 		payment = #{payment,jdbcType=DOUBLE},
+		pay_time = #{payTime,jdbcType=TIMESTAMP},
+		created = #{created,jdbcType=TIMESTAMP},
+		status = #{status,jdbcType=VARCHAR},
 		delivery_track = #{deliveryTrack,jdbcType=VARCHAR},
 		last_update_time = #{lastUpdateTime,jdbcType=TIMESTAMP},
 		note = #{note,jdbcType=VARCHAR}
 		where id = #{id,jdbcType=BIGINT}
 	</update>
 
-	<!-- ### 以上代码由MBG + CommentPlugin自动生成, 生成时间: 2012-07-28 13:29:49 ### -->
+	<!-- ### 以上代码由MBG + CommentPlugin自动生成, 生成时间: 2012-07-31 22:43:58 ### -->
 
 	<select id="getByPage" resultMap="BaseResultMap">
 		select sql_calc_found_rows *
-		from taobao_trade order by id desc limit ${offset}, ${size}
+		from taobao_trade order by created desc
+	</select>
+
+	<select id="getByTid" resultMap="BaseResultMap">
+		select * from taobao_trade where
+		tid=#{tid}
 	</select>
 </mapper>

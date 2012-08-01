@@ -1,5 +1,7 @@
 package com.nzonly.tb.quartz;
 
+import javax.annotation.PostConstruct;
+
 import org.quartz.Scheduler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -20,8 +22,15 @@ public class ScheduleService {
 	@Autowired
 	private Scheduler scheduler;
 	
+	@PostConstruct
+	@SuppressWarnings("unused")
+	private void initCheck() {
+		
+	}
+	
 	/**
-	 * TODO
+	 * 添加一个定时任务
+	 * 
 	 * @author yinheli
 	 * @date 2012-7-21 上午10:33:59
 	 */

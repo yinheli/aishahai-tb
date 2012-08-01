@@ -4,7 +4,7 @@
 <%@ include file="../tag.jsp" %>
 <html>
 <head>
-	<title>订单信息</title>
+	<title>运单信息</title>
 </head>
 <body>
 
@@ -24,13 +24,12 @@
 	<table class="result">
 		<thead>
 			<tr>
-				<th>淘宝订单号</th>
+				<th>淘宝交易号</th>
 				<th>运单号</th>
 				<th>买家昵称</th>
-				<th>支付金额</th>
-				<th>交易创建时间</th>
-				<th>付款时间</th>
-				<th>交易状态</th>
+				<th>物流公司名称</th>
+				<th>货物名称</th>
+				<th>运单号</th>
 				<th>本地最后处理时间</th>
 				<th>本地备注</th>
 			</tr>

@@ -1,5 +1,7 @@
 package com.nzonly.tb.taobao;
 
+import javax.annotation.PostConstruct;
+
 import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.commons.lang.builder.ToStringStyle;
 import org.slf4j.Logger;
@@ -9,6 +11,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import com.nzonly.tb.service.TaobaoTaskService;
+import com.nzonly.tb.service.TaobaoTradeService;
 import com.taobao.api.DefaultTaobaoClient;
 import com.taobao.api.TaobaoClient;
 
@@ -32,10 +35,19 @@ public class TaobaoService {
 	@Value("${app.secret}")
 	protected String appSecret;
 	
-	protected final TaobaoClient client = new DefaultTaobaoClient(appResetUri, appKey, appSecret);
+	protected TaobaoClient client;
 	
 	@Autowired
 	protected TaobaoTaskService taskService;
+	
+	@Autowired
+	protected TaobaoTradeService tradeService;
+	
+	@PostConstruct
+	@SuppressWarnings("unused")
+	private void init() {
+		client = new DefaultTaobaoClient(appResetUri, appKey, appSecret);
+	}
 	
 	protected String dump(Object obj) {
 		return ToStringBuilder.reflectionToString(obj, ToStringStyle.MULTI_LINE_STYLE);

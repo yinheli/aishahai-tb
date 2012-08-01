@@ -8,27 +8,25 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.nzonly.tb.Constants;
-import com.nzonly.tb.service.TaobaoTradeService;
+import com.nzonly.tb.service.LogisticsService;
 
 /**
- * @author yinheli
- * @link yinheli@gmail.com
- * @date 2012-7-22 上午10:40:01
+ * @author yinheli <yinheli@gmail.com>
+ * @date 2012-8-1 下午11:23:51
  * @version V1.0
  */
 @Controller
-@RequestMapping("/trade")
-public class TradeController extends BaseController {
+@RequestMapping("/trade/logistics")
+public class LogisticsController extends BaseController {
 	
 	@Autowired
-	private TaobaoTradeService tradeService;
+	private LogisticsService logisticsService;
 	
 	@RequestMapping(value = {"index", ""})
 	public String index(Model model, @RequestParam(defaultValue = "1") int p) {
 		PageRequest pageRequest = new PageRequest(p - 1, Constants.PAGE_SIZE);
-		model.addAttribute("list", tradeService.getByPage(pageRequest));
-		model.addAttribute("status", Constants.TradeStatus.STATUS_MAP);
-		return "trade/index";
+		model.addAttribute("list", logisticsService.getByPage(pageRequest));
+		return "logistics/index";
 	}
-	
+
 }

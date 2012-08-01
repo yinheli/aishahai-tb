@@ -29,11 +29,12 @@ public class TaobaoTradesServiceTest extends BaseTestNoWeb implements TestConsta
 	 * @date 2012-7-24 上午7:23:44
 	 */
 	@Test
+	@Rollback(false)
 	public void testTradesSoldGet() throws Exception {
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		Date start = sdf.parse("2012-07-21 00:00:00");
-		Date end =  sdf.parse("2012-07-21 23:59:59");
-		PageRequest page = new PageRequest(1, 40);
+		Date end =  sdf.parse("2012-07-29 23:59:59");
+		PageRequest page = new PageRequest(0, 40);
 		service.tradesSoldGet(start, end, page, session);
 	}
 	
@@ -61,12 +62,12 @@ public class TaobaoTradesServiceTest extends BaseTestNoWeb implements TestConsta
 	@Test
 	@Rollback(false)
 	public void testTopatsTesultGet() throws Exception {
-		System.out.println(service.topatsTesultGet(32142490L));
+		System.out.println(service.topatsTesultGet(33042787L));
 	}
 	
 	@Test
 	public void testFullinfoGet() throws Exception {
-		service.fullinfoGet(197520245908547L, session);
+		service.fullinfoGet(144424580058621L, session);
 	}
 
 }

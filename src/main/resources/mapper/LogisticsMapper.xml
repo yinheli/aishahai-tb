@@ -1,0 +1,236 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="Logistics">
+	<resultMap id="BaseResultMap" type="com.nzonly.tb.entity.Logistics">
+
+		<!-- 交易ID -->
+		<id column="tid" property="tid" jdbcType="BIGINT" />
+
+		<!-- 买家昵称 -->
+		<result column="buyer_nick" property="buyerNick" jdbcType="VARCHAR" />
+
+		<!-- 收件人姓名 -->
+		<result column="receiver_name" property="receiverName"
+			jdbcType="VARCHAR" />
+
+		<!-- 收件人电话 -->
+		<result column="receiver_phone" property="receiverPhone"
+			jdbcType="VARCHAR" />
+
+		<!-- 收件人手机号码 -->
+		<result column="receiver_mobile" property="receiverMobile"
+			jdbcType="VARCHAR" />
+
+		<!-- 物流公司名称 -->
+		<result column="company_name" property="companyName" jdbcType="VARCHAR" />
+
+		<!-- 运单号.具体一个物流公司的运单号码. -->
+		<result column="out_sid" property="outSid" jdbcType="VARCHAR" />
+
+		<!-- 运单创建时间 -->
+		<result column="created" property="created" jdbcType="TIMESTAMP" />
+
+		<!-- 货物名称 -->
+		<result column="item_title" property="itemTitle" jdbcType="VARCHAR" />
+
+		<!-- 物流跟踪信息 -->
+		<result column="trace" property="trace" jdbcType="VARCHAR" />
+
+		<!-- 本地记录创建时间 -->
+		<result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+
+		<!-- 本地记录最后更新时间 -->
+		<result column="last_update_time" property="lastUpdateTime"
+			jdbcType="TIMESTAMP" />
+
+		<!-- 本地备注信息 -->
+		<result column="note" property="note" jdbcType="VARCHAR" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		tid, buyer_nick, receiver_name, receiver_phone, receiver_mobile,
+		company_name, out_sid,
+		created, item_title, trace, create_time, last_update_time, note
+	</sql>
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
+		parameterType="java.lang.Long">
+		select
+		<include refid="Base_Column_List" />
+		from logistics
+		where tid = #{tid,jdbcType=BIGINT}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+		delete from logistics
+		where tid = #{tid,jdbcType=BIGINT}
+	</delete>
+	<insert id="insert">
+		insert into logistics (tid, buyer_nick, receiver_name,
+		receiver_phone, receiver_mobile, company_name,
+		out_sid, created, item_title,
+		trace, create_time, last_update_time,
+		note)
+		values (#{tid,jdbcType=BIGINT}, #{buyerNick,jdbcType=VARCHAR},
+		#{receiverName,jdbcType=VARCHAR},
+		#{receiverPhone,jdbcType=VARCHAR}, #{receiverMobile,jdbcType=VARCHAR}, #{companyName,jdbcType=VARCHAR},
+		#{outSid,jdbcType=VARCHAR}, #{created,jdbcType=TIMESTAMP},
+		#{itemTitle,jdbcType=VARCHAR},
+		#{trace,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP},
+		#{lastUpdateTime,jdbcType=TIMESTAMP},
+		#{note,jdbcType=VARCHAR})
+	</insert>
+	<insert id="insertSelective">
+		insert into logistics
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="tid != null">
+				tid,
+			</if>
+			<if test="buyerNick != null">
+				buyer_nick,
+			</if>
+			<if test="receiverName != null">
+				receiver_name,
+			</if>
+			<if test="receiverPhone != null">
+				receiver_phone,
+			</if>
+			<if test="receiverMobile != null">
+				receiver_mobile,
+			</if>
+			<if test="companyName != null">
+				company_name,
+			</if>
+			<if test="outSid != null">
+				out_sid,
+			</if>
+			<if test="created != null">
+				created,
+			</if>
+			<if test="itemTitle != null">
+				item_title,
+			</if>
+			<if test="trace != null">
+				trace,
+			</if>
+			<if test="createTime != null">
+				create_time,
+			</if>
+			<if test="lastUpdateTime != null">
+				last_update_time,
+			</if>
+			<if test="note != null">
+				note,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="tid != null">
+				#{tid,jdbcType=BIGINT},
+			</if>
+			<if test="buyerNick != null">
+				#{buyerNick,jdbcType=VARCHAR},
+			</if>
+			<if test="receiverName != null">
+				#{receiverName,jdbcType=VARCHAR},
+			</if>
+			<if test="receiverPhone != null">
+				#{receiverPhone,jdbcType=VARCHAR},
+			</if>
+			<if test="receiverMobile != null">
+				#{receiverMobile,jdbcType=VARCHAR},
+			</if>
+			<if test="companyName != null">
+				#{companyName,jdbcType=VARCHAR},
+			</if>
+			<if test="outSid != null">
+				#{outSid,jdbcType=VARCHAR},
+			</if>
+			<if test="created != null">
+				#{created,jdbcType=TIMESTAMP},
+			</if>
+			<if test="itemTitle != null">
+				#{itemTitle,jdbcType=VARCHAR},
+			</if>
+			<if test="trace != null">
+				#{trace,jdbcType=VARCHAR},
+			</if>
+			<if test="createTime != null">
+				#{createTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="lastUpdateTime != null">
+				#{lastUpdateTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="note != null">
+				#{note,jdbcType=VARCHAR},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective">
+		update logistics
+		<set>
+			<if test="buyerNick != null">
+				buyer_nick = #{buyerNick,jdbcType=VARCHAR},
+			</if>
+			<if test="receiverName != null">
+				receiver_name = #{receiverName,jdbcType=VARCHAR},
+			</if>
+			<if test="receiverPhone != null">
+				receiver_phone = #{receiverPhone,jdbcType=VARCHAR},
+			</if>
+			<if test="receiverMobile != null">
+				receiver_mobile = #{receiverMobile,jdbcType=VARCHAR},
+			</if>
+			<if test="companyName != null">
+				company_name = #{companyName,jdbcType=VARCHAR},
+			</if>
+			<if test="outSid != null">
+				out_sid = #{outSid,jdbcType=VARCHAR},
+			</if>
+			<if test="created != null">
+				created = #{created,jdbcType=TIMESTAMP},
+			</if>
+			<if test="itemTitle != null">
+				item_title = #{itemTitle,jdbcType=VARCHAR},
+			</if>
+			<if test="trace != null">
+				trace = #{trace,jdbcType=VARCHAR},
+			</if>
+			<if test="createTime != null">
+				create_time = #{createTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="lastUpdateTime != null">
+				last_update_time = #{lastUpdateTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="note != null">
+				note = #{note,jdbcType=VARCHAR},
+			</if>
+		</set>
+		where tid = #{tid,jdbcType=BIGINT}
+	</update>
+	<update id="updateByPrimaryKey">
+		update logistics
+		set buyer_nick = #{buyerNick,jdbcType=VARCHAR},
+		receiver_name = #{receiverName,jdbcType=VARCHAR},
+		receiver_phone = #{receiverPhone,jdbcType=VARCHAR},
+		receiver_mobile = #{receiverMobile,jdbcType=VARCHAR},
+		company_name = #{companyName,jdbcType=VARCHAR},
+		out_sid = #{outSid,jdbcType=VARCHAR},
+		created = #{created,jdbcType=TIMESTAMP},
+		item_title = #{itemTitle,jdbcType=VARCHAR},
+		trace = #{trace,jdbcType=VARCHAR},
+		create_time = #{createTime,jdbcType=TIMESTAMP},
+		last_update_time = #{lastUpdateTime,jdbcType=TIMESTAMP},
+		note = #{note,jdbcType=VARCHAR}
+		where tid = #{tid,jdbcType=BIGINT}
+	</update>
+
+	<!-- ### 以上代码由MBG + CommentPlugin自动生成, 生成时间: 2012-08-01 23:38:32 ### -->
+
+	<select id="getByPage" resultMap="BaseResultMap">
+		select * from logistics order
+		by tid desc
+	</select>
+
+	<select id="countByTid" resultType="long">
+		select count(tid) from
+		logistics where tid=#{tid}
+	</select>
+
+</mapper>

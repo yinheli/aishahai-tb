@@ -1,19 +1,38 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configuration>
-	<property name="LOG_HOME" value="c:/log" />
+	<property name="LOG_HOME" value="/log/nzonly/tb" />
 
 	<!-- 控制台输出 -->
 	<appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+		<encoder>
+			<pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{20} - [%method,%line] - %msg%n</pattern>
+		</encoder>
+	</appender>
+	
+	<appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<file>${LOG_HOME}/tb.log</file>
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<!-- daily rollover -->
+			<fileNamePattern>tb.%d{yyyy-MM-dd}.log</fileNamePattern>
+			<!-- keep 30 days' worth of history -->
+			<maxHistory>30</maxHistory>
+		</rollingPolicy>
 		<encoder>
 			<pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{80} - %msg%n</pattern>
 		</encoder>
 	</appender>
 	
 	<logger name="jdbc.sqltiming" level="INFO" />
-	
 	<logger name="com.nzonly.tb" level="DEBUG" />
 	
+	<!-- log4jdbc option log the jdbc results as a table 
+	<logger name="jdbc.resultsettable" additivity="false">
+		<level value="info" />
+		<appender-ref ref="STDOUT" />
+	</logger>
+	 -->
 	<root level="ERROR">
 		<appender-ref ref="STDOUT" />
+<!-- 		<appender-ref ref="FILE" /> -->
 	</root>
 </configuration> 

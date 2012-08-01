@@ -51,6 +51,24 @@ public class TaobaoTrade extends BaseEntity {
 	private String outSid;
 
 	/**
+	 * 物流信息状态, 订单的物流状态 * 等候发送给物流公司 *已提交给物流公司,等待物流公司接单 *已经确认消息接收，等待物流公司接单 *物流公司已接单 *物流公司不接单 *物流公司揽收失败 *物流公司揽收成功 *签收失败 *对方已签收 *对方拒绝签收
+	 *
+	 * Table:     taobao_trade
+	 * Column:    cod_status
+	 * Nullable:  true
+	 */
+	private String codStatus;
+
+	/**
+	 * 卖家发货时间
+	 *
+	 * Table:     taobao_trade
+	 * Column:    consign_time
+	 * Nullable:  true
+	 */
+	private Date consignTime;
+
+	/**
 	 * 物流公司
 	 *
 	 * Table:     taobao_trade
@@ -58,15 +76,6 @@ public class TaobaoTrade extends BaseEntity {
 	 * Nullable:  true
 	 */
 	private String companyName;
-
-	/**
-	 * 物流信息状态, 订单的物流状态 * 等候发送给物流公司 *已提交给物流公司,等待物流公司接单 *已经确认消息接收，等待物流公司接单 *物流公司已接单 *物流公司不接单 *物流公司揽收失败 *物流公司揽收成功 *签收失败 *对方已签收 *对方拒绝签收
-	 *
-	 * Table:     taobao_trade
-	 * Column:    out_status
-	 * Nullable:  true
-	 */
-	private String outStatus;
 
 	/**
 	 * 买家昵称
@@ -94,6 +103,33 @@ public class TaobaoTrade extends BaseEntity {
 	 * Nullable:  true
 	 */
 	private Double payment;
+
+	/**
+	 * 付款时间
+	 *
+	 * Table:     taobao_trade
+	 * Column:    pay_time
+	 * Nullable:  true
+	 */
+	private Date payTime;
+
+	/**
+	 * 交易创建时间
+	 *
+	 * Table:     taobao_trade
+	 * Column:    created
+	 * Nullable:  true
+	 */
+	private Date created;
+
+	/**
+	 * 交易状态。可选值: * TRADE_NO_CREATE_PAY(没有创建支付宝交易) * WAIT_BUYER_PAY(等待买家付款) * WAIT_SELLER_SEND_GOODS(等待卖家发货,即:买家已付款) * WAIT_BUYER_CONFIRM_GOODS(等待买家确认收货,即:卖家已发货) * TRADE_BUYER_SIGNED(买家已签收,货到付款专用) * TRADE_FINISHED(交易成功) * TRADE_CLOSED(付款以后用户退款成功，交易自动关闭) * TRADE_C
+	 *
+	 * Table:     taobao_trade
+	 * Column:    status
+	 * Nullable:  true
+	 */
+	private String status;
 
 	/**
 	 * 物流信息跟踪
@@ -220,6 +256,50 @@ public class TaobaoTrade extends BaseEntity {
 	}
 
 	/**
+	 * 物流信息状态, 订单的物流状态 * 等候发送给物流公司 *已提交给物流公司,等待物流公司接单 *已经确认消息接收，等待物流公司接单 *物流公司已接单 *物流公司不接单 *物流公司揽收失败 *物流公司揽收成功 *签收失败 *对方已签收 *对方拒绝签收
+	 *
+	 * Table:     taobao_trade
+	 * Column:    cod_status
+	 * Nullable:  true
+	 */
+	public String getCodStatus() {
+		return codStatus;
+	}
+
+	/**
+	 * 物流信息状态, 订单的物流状态 * 等候发送给物流公司 *已提交给物流公司,等待物流公司接单 *已经确认消息接收，等待物流公司接单 *物流公司已接单 *物流公司不接单 *物流公司揽收失败 *物流公司揽收成功 *签收失败 *对方已签收 *对方拒绝签收
+	 *
+	 * Table:     taobao_trade
+	 * Column:    cod_status
+	 * Nullable:  true
+	 */
+	public void setCodStatus(String codStatus) {
+		this.codStatus = codStatus;
+	}
+
+	/**
+	 * 卖家发货时间
+	 *
+	 * Table:     taobao_trade
+	 * Column:    consign_time
+	 * Nullable:  true
+	 */
+	public Date getConsignTime() {
+		return consignTime;
+	}
+
+	/**
+	 * 卖家发货时间
+	 *
+	 * Table:     taobao_trade
+	 * Column:    consign_time
+	 * Nullable:  true
+	 */
+	public void setConsignTime(Date consignTime) {
+		this.consignTime = consignTime;
+	}
+
+	/**
 	 * 物流公司
 	 *
 	 * Table:     taobao_trade
@@ -239,28 +319,6 @@ public class TaobaoTrade extends BaseEntity {
 	 */
 	public void setCompanyName(String companyName) {
 		this.companyName = companyName;
-	}
-
-	/**
-	 * 物流信息状态, 订单的物流状态 * 等候发送给物流公司 *已提交给物流公司,等待物流公司接单 *已经确认消息接收，等待物流公司接单 *物流公司已接单 *物流公司不接单 *物流公司揽收失败 *物流公司揽收成功 *签收失败 *对方已签收 *对方拒绝签收
-	 *
-	 * Table:     taobao_trade
-	 * Column:    out_status
-	 * Nullable:  true
-	 */
-	public String getOutStatus() {
-		return outStatus;
-	}
-
-	/**
-	 * 物流信息状态, 订单的物流状态 * 等候发送给物流公司 *已提交给物流公司,等待物流公司接单 *已经确认消息接收，等待物流公司接单 *物流公司已接单 *物流公司不接单 *物流公司揽收失败 *物流公司揽收成功 *签收失败 *对方已签收 *对方拒绝签收
-	 *
-	 * Table:     taobao_trade
-	 * Column:    out_status
-	 * Nullable:  true
-	 */
-	public void setOutStatus(String outStatus) {
-		this.outStatus = outStatus;
 	}
 
 	/**
@@ -327,6 +385,72 @@ public class TaobaoTrade extends BaseEntity {
 	 */
 	public void setPayment(Double payment) {
 		this.payment = payment;
+	}
+
+	/**
+	 * 付款时间
+	 *
+	 * Table:     taobao_trade
+	 * Column:    pay_time
+	 * Nullable:  true
+	 */
+	public Date getPayTime() {
+		return payTime;
+	}
+
+	/**
+	 * 付款时间
+	 *
+	 * Table:     taobao_trade
+	 * Column:    pay_time
+	 * Nullable:  true
+	 */
+	public void setPayTime(Date payTime) {
+		this.payTime = payTime;
+	}
+
+	/**
+	 * 交易创建时间
+	 *
+	 * Table:     taobao_trade
+	 * Column:    created
+	 * Nullable:  true
+	 */
+	public Date getCreated() {
+		return created;
+	}
+
+	/**
+	 * 交易创建时间
+	 *
+	 * Table:     taobao_trade
+	 * Column:    created
+	 * Nullable:  true
+	 */
+	public void setCreated(Date created) {
+		this.created = created;
+	}
+
+	/**
+	 * 交易状态。可选值: * TRADE_NO_CREATE_PAY(没有创建支付宝交易) * WAIT_BUYER_PAY(等待买家付款) * WAIT_SELLER_SEND_GOODS(等待卖家发货,即:买家已付款) * WAIT_BUYER_CONFIRM_GOODS(等待买家确认收货,即:卖家已发货) * TRADE_BUYER_SIGNED(买家已签收,货到付款专用) * TRADE_FINISHED(交易成功) * TRADE_CLOSED(付款以后用户退款成功，交易自动关闭) * TRADE_C
+	 *
+	 * Table:     taobao_trade
+	 * Column:    status
+	 * Nullable:  true
+	 */
+	public String getStatus() {
+		return status;
+	}
+
+	/**
+	 * 交易状态。可选值: * TRADE_NO_CREATE_PAY(没有创建支付宝交易) * WAIT_BUYER_PAY(等待买家付款) * WAIT_SELLER_SEND_GOODS(等待卖家发货,即:买家已付款) * WAIT_BUYER_CONFIRM_GOODS(等待买家确认收货,即:卖家已发货) * TRADE_BUYER_SIGNED(买家已签收,货到付款专用) * TRADE_FINISHED(交易成功) * TRADE_CLOSED(付款以后用户退款成功，交易自动关闭) * TRADE_C
+	 *
+	 * Table:     taobao_trade
+	 * Column:    status
+	 * Nullable:  true
+	 */
+	public void setStatus(String status) {
+		this.status = status;
 	}
 
 	/**

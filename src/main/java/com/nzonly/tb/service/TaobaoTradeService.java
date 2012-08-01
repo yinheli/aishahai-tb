@@ -26,4 +26,34 @@ public class TaobaoTradeService {
 		return dao.getByPage("TaobaoTrade.getByPage", pageRequest);
 	}
 
+	/**
+	 * @param tid
+	 * @return
+	 * @author yinheli
+	 * @date 2012-7-29 下午11:42:21
+	 */
+	public TaobaoTrade getByTid(Long tid) {
+		return dao.getOne("TaobaoTrade.getByTid", tid);
+	}
+
+	/**
+	 * @param trade
+	 * @author yinheli
+	 * @date 2012-7-29 下午11:44:30
+	 */
+	@Transactional(readOnly = false)
+	public void update(TaobaoTrade trade) {
+		dao.update("TaobaoTrade.updateByPrimaryKeySelective", trade);
+	}
+
+	/**
+	 * @param trade
+	 * @author yinheli
+	 * @date 2012-7-29 下午11:46:18
+	 */
+	@Transactional(readOnly = false)
+	public void save(TaobaoTrade trade) {
+		dao.insert("TaobaoTrade.insertSelective", trade);
+	}
+
 }

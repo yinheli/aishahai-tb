@@ -36,6 +36,15 @@ public class TaobaoTaskService {
 	}
 	
 	@Transactional(readOnly = false)
+	public void saveOrUpdate(TaobaoTask task) {
+		if ((Long)dao.getOne("TaobaoTask.countTaskByTaskId", task.getTaskId()) > 0) {
+			dao.update("TaobaoTask.updateByPrimaryKeySelective", task);
+		} else {
+			save(task);
+		}
+	}
+	
+	@Transactional(readOnly = false)
 	public void save(TaobaoTask task) {
 		dao.insert("TaobaoTask.insertSelective", task);
 	}

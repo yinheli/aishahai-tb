@@ -58,9 +58,12 @@ public class TradeAjaxController extends BaseController {
 			@Override
 			public void run() {
 				try {
-					log.debug("start:{}, end:{}", start, end);
 					httpSession.setAttribute(_TRADE_PROCESS_FLAG, 20);
 					String session = authInfoService.getById(user.authId).getAccessToken();
+					if (log.isDebugEnabled()) {
+						log.debug("start:{}, end:{}", start, end);
+						log.debug("session: {}", session);
+					}
 					Date endDate = new SimpleDateFormat("yyyy-MM-dd").parse(end);
 					Calendar cal = Calendar.getInstance();
 					cal.setTime(endDate);
@@ -68,7 +71,7 @@ public class TradeAjaxController extends BaseController {
 					cal.set(Calendar.MINUTE, 59);
 					cal.set(Calendar.SECOND, 59);
 					tradesSoldGet(new SimpleDateFormat("yyyy-MM-dd").parse(start), 
-							cal.getTime(), new PageRequest(1, 40), session);
+							cal.getTime(), new PageRequest(0, 40), session);
 				} catch (ParseException e) {
 					throw new RuntimeException(e);
 				} finally {
@@ -80,15 +83,22 @@ public class TradeAjaxController extends BaseController {
 				Page<TaobaoTrade> page;
 				try {
 					page = taobaoTradesService.tradesSoldGet(start, end, pageRequest, session);
-					if (page != null) {
+					setProcess(page);
+					if (page != null && !page.getContent().isEmpty()) {
 						while (page.hasNextPage()) {
-							taobaoTradesService.tradesSoldGet(start, end, 
+							setProcess(page);
+							page = taobaoTradesService.tradesSoldGet(start, end, 
 									new PageRequest(page.getNumber() + 1, pageRequest.getPageSize()), session);
 						}
 					}
 				} catch (Exception e) {
 					throw new RuntimeException(e);
 				}
+			}
+			
+			private void setProcess(Page<?> page) {
+				log.info("Page:{}, total:{}", page.getNumber(), page.getTotalPages());
+				httpSession.setAttribute(_TRADE_PROCESS_FLAG, (page.getNumber() + 1) / page.getTotalPages() * 80 + 20);
 			}
 		});
 		return "SUCCESS";

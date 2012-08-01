@@ -11,14 +11,19 @@ import com.nzonly.tb.test.BaseTestNoWeb;
  * @date 2012-7-22 上午12:19:08
  * @version V1.0
  */
-public class LogisticsServiceTest extends BaseTestNoWeb {
+public class LogisticsServiceTest extends BaseTestNoWeb implements TestConstants {
 	
 	@Autowired
 	private LogisticsService service;
 	
 	@Test
-	public void test() throws Exception {
-		service.traceSearch(197520245908547L, "爱莎海");
+	public void testTraceSearch() throws Exception {
+		service.traceSearch(200474609135389L, "爱莎海");
+	}
+	
+	@Test
+	public void testLogisticsOrdersGet() throws Exception {
+		service.logisticsOrdersGet(session);
 	}
 
 }
