@@ -1,5 +1,9 @@
 package com.nzonly.tb.web;
 
+import java.util.Date;
+
+import javax.servlet.http.HttpServletRequest;
+
 import org.apache.commons.lang.StringUtils;
 import org.apache.shiro.SecurityUtils;
 import org.slf4j.Logger;
@@ -40,13 +44,13 @@ public class AuthController extends BaseController {
 	private AuthService authService;
 	
 	@RequestMapping(value = "auth", method = RequestMethod.GET)
-	public String auth(@RequestParam String code, @RequestParam String state) throws Exception {
+	public String auth(HttpServletRequest req, @RequestParam String code, @RequestParam String state) throws Exception {
 		log.debug("code: {}", code);
 		if (code == null || StringUtils.isEmpty(code)) {
 			return "redirect:/login";
 		}
 		
-		AuthInfo info = authService.auth(code, state);
+		AuthInfo info = authService.auth(code, state, req.getRemoteAddr());
 		
 		// 用户信息处理
 		User user = userService.getByAuthUserId(info.getTaobaoUserId(), Constants.FromChannel.TAOBAO);
@@ -62,7 +66,11 @@ public class AuthController extends BaseController {
 			user.setAuthUserId(info.getTaobaoUserId());
 			user.setFromChannel(Constants.FromChannel.TAOBAO);
 			
-			userService.save(user);
+			userService.saveOrUpdate(user);
+		} else {
+			user.setLastLoginTime(new Date());
+			user.setLastLoginIp(req.getRemoteAddr());
+			userService.saveOrUpdate(user);
 		}
 
 		SecurityUtils.getSubject().login(new OpenAuthenticationToken(user.getUid()));

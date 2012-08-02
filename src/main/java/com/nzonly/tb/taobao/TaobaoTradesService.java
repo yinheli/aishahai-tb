@@ -6,15 +6,17 @@ import java.util.Date;
 import java.util.List;
 
 import org.apache.commons.beanutils.BeanUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Component;
 
-import com.alibaba.fastjson.JSONArray;
 import com.nzonly.tb.Constants;
+import com.nzonly.tb.entity.AuthInfo;
 import com.nzonly.tb.entity.TaobaoTask;
 import com.nzonly.tb.entity.TaobaoTrade;
+import com.nzonly.tb.service.AuthInfoService;
 import com.nzonly.tb.taobao.exception.TaobaoApiException;
 import com.nzonly.tb.taobao.exception.TaobaoException;
 import com.nzonly.tb.taobao.util.TaobaoBeanUtil;
@@ -39,6 +41,9 @@ import com.taobao.api.response.TradesSoldGetResponse;
  */
 @Component
 public class TaobaoTradesService extends TaobaoService {
+	
+	@Autowired
+	private AuthInfoService authInfoService;
 	
 	/**
 	 * 搜索当前会话用户作为卖家已卖出的交易数据
@@ -83,6 +88,8 @@ public class TaobaoTradesService extends TaobaoService {
 				return null;
 			}
 			
+			AuthInfo authInfo = authInfoService.getByAccessToken(session);
+			
 			List<TaobaoTrade> taobatTs = new ArrayList<TaobaoTrade>();
 			List<Trade> ts = resp.getTrades();
 			for (Trade trade : ts) {
@@ -98,6 +105,7 @@ public class TaobaoTradesService extends TaobaoService {
 				
 				// transfer
 				TaobaoBeanUtil.taobaoTrade2LocalTrade(trade, tt);
+				tt.setAuthId(authInfo.getId());
 				
 				if (updateFlag) {
 					tradeService.update(tt);

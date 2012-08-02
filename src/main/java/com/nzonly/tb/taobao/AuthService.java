@@ -36,7 +36,7 @@ public class AuthService extends TaobaoService {
 	@Autowired
 	private AuthInfoService authInfoService;
 	
-	public AuthInfo auth(String code, String state) throws IOException {
+	public AuthInfo auth(String code, String state, String ip) throws IOException {
 		
 		Map<String, String> params = new HashMap<String, String>();
 		params.put("client_id", appKey);
@@ -63,6 +63,7 @@ public class AuthService extends TaobaoService {
 		}
 		auth.copyProperties(info);
 		info.setLastUpdateTime(now);
+		info.setLastAuthIp(ip);
 		authInfoService.save(info);
 		
 		return info;

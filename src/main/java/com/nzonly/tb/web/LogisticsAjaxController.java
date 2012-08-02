@@ -17,69 +17,73 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.nzonly.tb.entity.TaobaoTrade;
+import com.nzonly.tb.entity.Logistics;
 import com.nzonly.tb.security.ShiroDbRealm.ShiroUser;
 import com.nzonly.tb.service.AuthInfoService;
-import com.nzonly.tb.taobao.TaobaoTradesService;
+import com.nzonly.tb.taobao.TaobaoLogisticsService;
 
 /**
  * @author yinheli <yinheli@gmail.com>
- * @date 2012-7-25 下午10:34:53
+ * @date 2012-8-1 下午11:50:13
  * @version V1.0
  */
 @Controller
-@RequestMapping("/ajax/trade")
-public class TradeAjaxController extends BaseController {
+@RequestMapping("/ajax/logistics")
+public class LogisticsAjaxController extends BaseController {
 	
+	/**
+	 * 淘宝物流 api service
+	 */
 	@Autowired
-	private TaobaoTradesService taobaoTradesService;
+	private TaobaoLogisticsService taobaoLogisticsService;
 	
 	@Autowired
 	private AuthInfoService authInfoService;
 	
-	private static final String _TRADE_PROCESS_FLAG = "_TRADE_PROCESS_FLAG";
+	private static final String _LOGISTICS_PROCESS_FLAG = "_LOGISTICS_PROCESS_FLAG";
 	
 	@RequestMapping(value = "/sync", method = RequestMethod.POST)
 	@ResponseBody
 	public String sync(final HttpSession httpSession, @RequestParam final String start, final @RequestParam String end) {
 		final ShiroUser user = (ShiroUser) SecurityUtils.getSubject().getPrincipal();
-		httpSession.setAttribute(_TRADE_PROCESS_FLAG, 10);
+		httpSession.setAttribute(_LOGISTICS_PROCESS_FLAG, 10);
 		// 任务并发提交过多会抛出异常
 		executorService.execute(new Runnable() {
 			
 			@Override
 			public void run() {
 				try {
-					httpSession.setAttribute(_TRADE_PROCESS_FLAG, 20);
+					httpSession.setAttribute(_LOGISTICS_PROCESS_FLAG, 20);
 					String session = authInfoService.getById(user.authId).getAccessToken();
 					if (log.isDebugEnabled()) {
 						log.debug("start:{}, end:{}", start, end);
 						log.debug("session: {}", session);
 					}
-					Date endDate = new SimpleDateFormat("yyyy-MM-dd").parse(end);
+					SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+					Date endDate = sdf.parse(end);
 					Calendar cal = Calendar.getInstance();
 					cal.setTime(endDate);
 					cal.set(Calendar.HOUR_OF_DAY, 23);
 					cal.set(Calendar.MINUTE, 59);
 					cal.set(Calendar.SECOND, 59);
-					tradesSoldGet(new SimpleDateFormat("yyyy-MM-dd").parse(start), 
-							cal.getTime(), new PageRequest(0, 50), session);
+					
+					logisticsOrdersGet(null, sdf.parse(start), cal.getTime(), new PageRequest(0, 50), session);
 				} catch (ParseException e) {
 					throw new RuntimeException(e);
 				} finally {
-					httpSession.setAttribute(_TRADE_PROCESS_FLAG, 100);
+					httpSession.setAttribute(_LOGISTICS_PROCESS_FLAG, 100);
 				}
 			}
 			
-			private void tradesSoldGet(Date start, Date end, PageRequest pageRequest, String session) {
-				Page<TaobaoTrade> page;
+			private void logisticsOrdersGet(Long tid, Date start, Date end, PageRequest pageRequest, String session) {
+				Page<Logistics> page;
 				try {
-					page = taobaoTradesService.tradesSoldGet(start, end, pageRequest, session);
+					page = taobaoLogisticsService.logisticsOrdersGet(tid, start, end, pageRequest, session);
 					setProcess(page);
 					if (page != null && !page.getContent().isEmpty()) {
 						while (page.hasNextPage()) {
 							setProcess(page);
-							page = taobaoTradesService.tradesSoldGet(start, end, 
+							page = taobaoLogisticsService.logisticsOrdersGet(tid, start, end,
 									new PageRequest(page.getNumber() + 1, pageRequest.getPageSize()), session);
 						}
 					}
@@ -90,7 +94,7 @@ public class TradeAjaxController extends BaseController {
 			
 			private void setProcess(Page<?> page) {
 				log.info("Page:{}, total:{}", page.getNumber(), page.getTotalPages());
-				httpSession.setAttribute(_TRADE_PROCESS_FLAG, (page.getNumber() + 1) / page.getTotalPages() * 80 + 20);
+				httpSession.setAttribute(_LOGISTICS_PROCESS_FLAG, (page.getNumber() + 1) / page.getTotalPages() * 80 + 20);
 			}
 		});
 		return "SUCCESS";
@@ -99,15 +103,15 @@ public class TradeAjaxController extends BaseController {
 	@RequestMapping(value = "/process")
 	@ResponseBody
 	public String process(HttpSession httpSession) {
-		Object flag = httpSession.getAttribute(_TRADE_PROCESS_FLAG);
+		Object flag = httpSession.getAttribute(_LOGISTICS_PROCESS_FLAG);
 		log.debug("process check:{}", flag);
 		if (flag == null) {
 			return "10";
 		}
 		if ((Integer)flag == 100) {
-			httpSession.removeAttribute(_TRADE_PROCESS_FLAG);
+			httpSession.removeAttribute(_LOGISTICS_PROCESS_FLAG);
 		}
 		return  Integer.toString((Integer)flag);
 	}
-	
+
 }

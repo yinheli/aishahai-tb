@@ -39,3 +39,38 @@ kbd {
 	background: #EEE;
 }
 /* reset END */
+
+#wrap {
+	width: 1024px;
+	margin: 0 auto;
+}
+
+header {
+	margin-bottom: 22px;
+}
+
+header h1 {
+	margin-top: 8px;
+	margin-bottom: 15px;
+}
+
+#main {
+	margin-bottom: 30px;
+}
+
+footer {
+	color: #888;
+}
+
+#nav {
+	margin-bottom: 20px;
+}
+
+#nav li {
+	display: inline;
+	font-size: 14px;
+}
+
+#nav li.user {
+	float: right;
+}

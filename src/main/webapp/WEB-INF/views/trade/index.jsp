@@ -145,6 +145,10 @@ $(function() {
 		
 		var checker = null;
 		
+		if ($("#start").val() == '' || $("#end").val() == '') {
+			alert('请填写起始和结束时间');
+		}
+		
 		$.ajax({
 			url: "${ctx}/ajax/trade/sync",
 			type: "POST",

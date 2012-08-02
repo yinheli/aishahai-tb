@@ -14,8 +14,9 @@ import com.nzonly.tb.test.BaseTestNoWeb;
 public class LogisticsServiceTest extends BaseTestNoWeb implements TestConstants {
 	
 	@Autowired
-	private LogisticsService service;
+	private TaobaoLogisticsService service;
 	
+	@SuppressWarnings("deprecation")
 	@Test
 	public void testTraceSearch() throws Exception {
 		service.traceSearch(200474609135389L, "爱莎海");
@@ -23,7 +24,7 @@ public class LogisticsServiceTest extends BaseTestNoWeb implements TestConstants
 	
 	@Test
 	public void testLogisticsOrdersGet() throws Exception {
-		service.logisticsOrdersGet(session);
+		service.logisticsOrdersGet(200474609135389L, null, null, null, session);
 	}
 
 }

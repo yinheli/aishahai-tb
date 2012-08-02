@@ -16,7 +16,7 @@ import com.nzonly.tb.service.LogisticsService;
  * @version V1.0
  */
 @Controller
-@RequestMapping("/trade/logistics")
+@RequestMapping("/logistics")
 public class LogisticsController extends BaseController {
 	
 	@Autowired
@@ -24,6 +24,7 @@ public class LogisticsController extends BaseController {
 	
 	@RequestMapping(value = {"index", ""})
 	public String index(Model model, @RequestParam(defaultValue = "1") int p) {
+		if (p <= 0) p = 1;
 		PageRequest pageRequest = new PageRequest(p - 1, Constants.PAGE_SIZE);
 		model.addAttribute("list", logisticsService.getByPage(pageRequest));
 		return "logistics/index";

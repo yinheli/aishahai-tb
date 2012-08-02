@@ -16,7 +16,7 @@
 	</repositories>
 
 	<properties>
-		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding> 
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<spring.version>3.1.1.RELEASE</spring.version>
 		<logback.version>0.9.28</logback.version>
 		<commons-lang.version>2.6</commons-lang.version>
@@ -193,6 +193,12 @@
 			<groupId>log4j</groupId>
 			<artifactId>log4j</artifactId>
 			<version>1.2.15</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.jsoup</groupId>
+			<artifactId>jsoup</artifactId>
+			<version>1.6.1</version>
 		</dependency>
 
 		<!-- mvn install:install-file -Dfile=taobao-sdk-java-online_standard.jar 

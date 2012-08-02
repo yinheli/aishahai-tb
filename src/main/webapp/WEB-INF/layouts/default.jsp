@@ -12,21 +12,21 @@
 <sitemesh:head />
 </head>
 <body>
-	<div class="wrapper">
+	<div id="wrap">
 		<header>
 			<h1>爱莎海 - 淘宝工具</h1>
 			<p>又一个小工具</p>
 		</header>
 		
 		<nav>
-			<ul>
+			<ul id="nav">
 				<li><a href="${ctx}/">首页</a></li>
 				<li><a href="${ctx}/trade">订单信息</a></li>
 				<li><a href="${ctx}/logistics">运单信息</a></li>
 				<li><a href="${ctx}/task">异步任务</a></li>
 				<li><a href="${ctx}/schedule">定时服务</a></li>
 				<shiro:user>
-					<li><shiro:principal property="name"/>, <a href="${ctx}/logout">退出</a></li>
+					<li class="user"><shiro:principal property="name"/>, <a href="${ctx}/logout">退出</a></li>
 				</shiro:user>
 			</ul>
 		</nav>

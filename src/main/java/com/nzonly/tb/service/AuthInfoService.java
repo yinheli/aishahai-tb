@@ -42,4 +42,16 @@ public class AuthInfoService {
 		}
 	}
 
+	/**
+	 * 通过Access token 获取
+	 * 
+	 * @param session
+	 * @return
+	 * @author yinheli
+	 * @date 2012-8-2 上午12:25:33
+	 */
+	public AuthInfo getByAccessToken(String session) {
+		return dao.getOne("AuthInfo.getByAccessToken", session);
+	}
+
 }

@@ -25,6 +25,7 @@ public class TaskController extends BaseController {
 	
 	@RequestMapping(value = {"index", ""})
 	public String index(Model model, @RequestParam(defaultValue = "1") int p) {
+		if (p <= 0) p = 1;
 		PageRequest pageRequest = new PageRequest(p - 1, Constants.PAGE_SIZE);
 		model.addAttribute("list", taskService.getByPage(pageRequest));
 		return "task/index";

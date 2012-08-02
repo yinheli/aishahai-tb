@@ -1,5 +1,7 @@
 package com.nzonly.tb.entity;
 
+import java.util.Date;
+
 /**
  * 系统用户
  * 
@@ -11,278 +13,339 @@ package com.nzonly.tb.entity;
 public class User extends BaseEntity {
 
 	private static final long serialVersionUID = 1795083589235034286L;
-	
+
 	/**
-     * Table:     user
-     * Column:    id
-     * Nullable:  false
-     */
-    private Integer id;
+	 * Table:     user
+	 * Column:    id
+	 * Nullable:  false
+	 */
+	private Integer id;
 
-    /**
-     * 登录名
-     *
-     * Table:     user
-     * Column:    uid
-     * Nullable:  true
-     */
-    private String uid;
+	/**
+	 * 登录名
+	 *
+	 * Table:     user
+	 * Column:    uid
+	 * Nullable:  true
+	 */
+	private String uid;
 
-    /**
-     * 昵称
-     *
-     * Table:     user
-     * Column:    nickname
-     * Nullable:  true
-     */
-    private String nickname;
+	/**
+	 * 昵称
+	 *
+	 * Table:     user
+	 * Column:    nickname
+	 * Nullable:  true
+	 */
+	private String nickname;
 
-    /**
-     * 邮箱
-     *
-     * Table:     user
-     * Column:    email
-     * Nullable:  true
-     */
-    private String email;
+	/**
+	 * 邮箱
+	 *
+	 * Table:     user
+	 * Column:    email
+	 * Nullable:  true
+	 */
+	private String email;
 
-    /**
-     * 来源(渠道) 如: 淘宝,新浪微博等
-     *
-     * Table:     user
-     * Column:    from_channel
-     * Nullable:  true
-     */
-    private String fromChannel;
+	/**
+	 * 来源(渠道) 如: 淘宝,新浪微博等
+	 *
+	 * Table:     user
+	 * Column:    from_channel
+	 * Nullable:  true
+	 */
+	private String fromChannel;
 
-    /**
-     * 授权信息
-     *
-     * Table:     user
-     * Column:    auth_id
-     * Nullable:  true
-     */
-    private Long authId;
+	/**
+	 * 授权信息
+	 *
+	 * Table:     user
+	 * Column:    auth_id
+	 * Nullable:  true
+	 */
+	private Long authId;
 
-    /**
-     * 授权用户id, 如淘宝 id
-     *
-     * Table:     user
-     * Column:    auth_user_id
-     * Nullable:  true
-     */
-    private String authUserId;
+	/**
+	 * 授权用户id, 如淘宝 id
+	 *
+	 * Table:     user
+	 * Column:    auth_user_id
+	 * Nullable:  true
+	 */
+	private String authUserId;
 
-    /**
-     * 登录密码
-     *
-     * Table:     user
-     * Column:    pwd
-     * Nullable:  true
-     */
-    private String pwd;
+	/**
+	 * 登录密码
+	 *
+	 * Table:     user
+	 * Column:    pwd
+	 * Nullable:  true
+	 */
+	private String pwd;
 
-    /**
-     * 盐值
-     *
-     * Table:     user
-     * Column:    salt
-     * Nullable:  true
-     */
-    private String salt;
+	/**
+	 * 盐值
+	 *
+	 * Table:     user
+	 * Column:    salt
+	 * Nullable:  true
+	 */
+	private String salt;
 
-    /**
-     * Table:     user
-     * Column:    id
-     * Nullable:  false
-     */
-    public Integer getId() {
-        return id;
-    }
+	/**
+	 * 上次登陆IP
+	 *
+	 * Table:     user
+	 * Column:    last_login_ip
+	 * Nullable:  true
+	 */
+	private String lastLoginIp;
 
-    /**
-     * Table:     user
-     * Column:    id
-     * Nullable:  false
-     */
-    public void setId(Integer id) {
-        this.id = id;
-    }
+	/**
+	 * 上次登陆时间
+	 *
+	 * Table:     user
+	 * Column:    last_login_time
+	 * Nullable:  true
+	 */
+	private Date lastLoginTime;
 
-    /**
-     * 登录名
-     *
-     * Table:     user
-     * Column:    uid
-     * Nullable:  true
-     */
-    public String getUid() {
-        return uid;
-    }
+	/**
+	 * Table:     user
+	 * Column:    id
+	 * Nullable:  false
+	 */
+	public Integer getId() {
+		return id;
+	}
 
-    /**
-     * 登录名
-     *
-     * Table:     user
-     * Column:    uid
-     * Nullable:  true
-     */
-    public void setUid(String uid) {
-        this.uid = uid;
-    }
+	/**
+	 * Table:     user
+	 * Column:    id
+	 * Nullable:  false
+	 */
+	public void setId(Integer id) {
+		this.id = id;
+	}
 
-    /**
-     * 昵称
-     *
-     * Table:     user
-     * Column:    nickname
-     * Nullable:  true
-     */
-    public String getNickname() {
-        return nickname;
-    }
+	/**
+	 * 登录名
+	 *
+	 * Table:     user
+	 * Column:    uid
+	 * Nullable:  true
+	 */
+	public String getUid() {
+		return uid;
+	}
 
-    /**
-     * 昵称
-     *
-     * Table:     user
-     * Column:    nickname
-     * Nullable:  true
-     */
-    public void setNickname(String nickname) {
-        this.nickname = nickname;
-    }
+	/**
+	 * 登录名
+	 *
+	 * Table:     user
+	 * Column:    uid
+	 * Nullable:  true
+	 */
+	public void setUid(String uid) {
+		this.uid = uid;
+	}
 
-    /**
-     * 邮箱
-     *
-     * Table:     user
-     * Column:    email
-     * Nullable:  true
-     */
-    public String getEmail() {
-        return email;
-    }
+	/**
+	 * 昵称
+	 *
+	 * Table:     user
+	 * Column:    nickname
+	 * Nullable:  true
+	 */
+	public String getNickname() {
+		return nickname;
+	}
 
-    /**
-     * 邮箱
-     *
-     * Table:     user
-     * Column:    email
-     * Nullable:  true
-     */
-    public void setEmail(String email) {
-        this.email = email;
-    }
+	/**
+	 * 昵称
+	 *
+	 * Table:     user
+	 * Column:    nickname
+	 * Nullable:  true
+	 */
+	public void setNickname(String nickname) {
+		this.nickname = nickname;
+	}
 
-    /**
-     * 来源(渠道) 如: 淘宝,新浪微博等
-     *
-     * Table:     user
-     * Column:    from_channel
-     * Nullable:  true
-     */
-    public String getFromChannel() {
-        return fromChannel;
-    }
+	/**
+	 * 邮箱
+	 *
+	 * Table:     user
+	 * Column:    email
+	 * Nullable:  true
+	 */
+	public String getEmail() {
+		return email;
+	}
 
-    /**
-     * 来源(渠道) 如: 淘宝,新浪微博等
-     *
-     * Table:     user
-     * Column:    from_channel
-     * Nullable:  true
-     */
-    public void setFromChannel(String fromChannel) {
-        this.fromChannel = fromChannel;
-    }
+	/**
+	 * 邮箱
+	 *
+	 * Table:     user
+	 * Column:    email
+	 * Nullable:  true
+	 */
+	public void setEmail(String email) {
+		this.email = email;
+	}
 
-    /**
-     * 授权信息
-     *
-     * Table:     user
-     * Column:    auth_id
-     * Nullable:  true
-     */
-    public Long getAuthId() {
-        return authId;
-    }
+	/**
+	 * 来源(渠道) 如: 淘宝,新浪微博等
+	 *
+	 * Table:     user
+	 * Column:    from_channel
+	 * Nullable:  true
+	 */
+	public String getFromChannel() {
+		return fromChannel;
+	}
 
-    /**
-     * 授权信息
-     *
-     * Table:     user
-     * Column:    auth_id
-     * Nullable:  true
-     */
-    public void setAuthId(Long authId) {
-        this.authId = authId;
-    }
+	/**
+	 * 来源(渠道) 如: 淘宝,新浪微博等
+	 *
+	 * Table:     user
+	 * Column:    from_channel
+	 * Nullable:  true
+	 */
+	public void setFromChannel(String fromChannel) {
+		this.fromChannel = fromChannel;
+	}
 
-    /**
-     * 授权用户id, 如淘宝 id
-     *
-     * Table:     user
-     * Column:    auth_user_id
-     * Nullable:  true
-     */
-    public String getAuthUserId() {
-        return authUserId;
-    }
+	/**
+	 * 授权信息
+	 *
+	 * Table:     user
+	 * Column:    auth_id
+	 * Nullable:  true
+	 */
+	public Long getAuthId() {
+		return authId;
+	}
 
-    /**
-     * 授权用户id, 如淘宝 id
-     *
-     * Table:     user
-     * Column:    auth_user_id
-     * Nullable:  true
-     */
-    public void setAuthUserId(String authUserId) {
-        this.authUserId = authUserId;
-    }
+	/**
+	 * 授权信息
+	 *
+	 * Table:     user
+	 * Column:    auth_id
+	 * Nullable:  true
+	 */
+	public void setAuthId(Long authId) {
+		this.authId = authId;
+	}
 
-    /**
-     * 登录密码
-     *
-     * Table:     user
-     * Column:    pwd
-     * Nullable:  true
-     */
-    public String getPwd() {
-        return pwd;
-    }
+	/**
+	 * 授权用户id, 如淘宝 id
+	 *
+	 * Table:     user
+	 * Column:    auth_user_id
+	 * Nullable:  true
+	 */
+	public String getAuthUserId() {
+		return authUserId;
+	}
 
-    /**
-     * 登录密码
-     *
-     * Table:     user
-     * Column:    pwd
-     * Nullable:  true
-     */
-    public void setPwd(String pwd) {
-        this.pwd = pwd;
-    }
+	/**
+	 * 授权用户id, 如淘宝 id
+	 *
+	 * Table:     user
+	 * Column:    auth_user_id
+	 * Nullable:  true
+	 */
+	public void setAuthUserId(String authUserId) {
+		this.authUserId = authUserId;
+	}
 
-    /**
-     * 盐值
-     *
-     * Table:     user
-     * Column:    salt
-     * Nullable:  true
-     */
-    public String getSalt() {
-        return salt;
-    }
+	/**
+	 * 登录密码
+	 *
+	 * Table:     user
+	 * Column:    pwd
+	 * Nullable:  true
+	 */
+	public String getPwd() {
+		return pwd;
+	}
 
-    /**
-     * 盐值
-     *
-     * Table:     user
-     * Column:    salt
-     * Nullable:  true
-     */
-    public void setSalt(String salt) {
-        this.salt = salt;
-    }
+	/**
+	 * 登录密码
+	 *
+	 * Table:     user
+	 * Column:    pwd
+	 * Nullable:  true
+	 */
+	public void setPwd(String pwd) {
+		this.pwd = pwd;
+	}
 
+	/**
+	 * 盐值
+	 *
+	 * Table:     user
+	 * Column:    salt
+	 * Nullable:  true
+	 */
+	public String getSalt() {
+		return salt;
+	}
+
+	/**
+	 * 盐值
+	 *
+	 * Table:     user
+	 * Column:    salt
+	 * Nullable:  true
+	 */
+	public void setSalt(String salt) {
+		this.salt = salt;
+	}
+
+	/**
+	 * 上次登陆IP
+	 *
+	 * Table:     user
+	 * Column:    last_login_ip
+	 * Nullable:  true
+	 */
+	public String getLastLoginIp() {
+		return lastLoginIp;
+	}
+
+	/**
+	 * 上次登陆IP
+	 *
+	 * Table:     user
+	 * Column:    last_login_ip
+	 * Nullable:  true
+	 */
+	public void setLastLoginIp(String lastLoginIp) {
+		this.lastLoginIp = lastLoginIp;
+	}
+
+	/**
+	 * 上次登陆时间
+	 *
+	 * Table:     user
+	 * Column:    last_login_time
+	 * Nullable:  true
+	 */
+	public Date getLastLoginTime() {
+		return lastLoginTime;
+	}
+
+	/**
+	 * 上次登陆时间
+	 *
+	 * Table:     user
+	 * Column:    last_login_time
+	 * Nullable:  true
+	 */
+	public void setLastLoginTime(Date lastLoginTime) {
+		this.lastLoginTime = lastLoginTime;
+	}
 }

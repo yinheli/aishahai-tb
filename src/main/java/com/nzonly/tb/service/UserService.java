@@ -40,7 +40,7 @@ public class UserService {
 	 * @date 2012-7-21 下午3:03:08
 	 */
 	@Transactional(readOnly = false)
-	public void save(User user) {
+	public void saveOrUpdate(User user) {
 		if (user.getId() == null) {
 			dao.insert("User.insertSelective", user);
 		} else {

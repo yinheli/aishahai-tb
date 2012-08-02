@@ -25,6 +25,7 @@ public class TradeController extends BaseController {
 	
 	@RequestMapping(value = {"index", ""})
 	public String index(Model model, @RequestParam(defaultValue = "1") int p) {
+		if (p <= 0) p = 1;
 		PageRequest pageRequest = new PageRequest(p - 1, Constants.PAGE_SIZE);
 		model.addAttribute("list", tradeService.getByPage(pageRequest));
 		model.addAttribute("status", Constants.TradeStatus.STATUS_MAP);

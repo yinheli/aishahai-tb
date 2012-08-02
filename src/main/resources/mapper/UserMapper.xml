@@ -27,9 +27,18 @@
 
 		<!-- 盐值 -->
 		<result column="salt" property="salt" jdbcType="VARCHAR" />
+
+		<!-- 上次登陆IP -->
+		<result column="last_login_ip" property="lastLoginIp" jdbcType="VARCHAR" />
+
+		<!-- 上次登陆时间 -->
+		<result column="last_login_time" property="lastLoginTime"
+			jdbcType="TIMESTAMP" />
 	</resultMap>
 	<sql id="Base_Column_List">
-		id, uid, nickname, email, from_channel, auth_id, auth_user_id, pwd, salt
+		id, uid, nickname, email, from_channel, auth_id, auth_user_id, pwd, salt,
+		last_login_ip,
+		last_login_time
 	</sql>
 	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
 		parameterType="java.lang.Integer">
@@ -45,14 +54,14 @@
 	<insert id="insert">
 		insert into user (id, uid, nickname,
 		email, from_channel, auth_id,
-		auth_user_id, pwd, salt
-		)
+		auth_user_id, pwd, salt,
+		last_login_ip, last_login_time)
 		values (#{id,jdbcType=INTEGER}, #{uid,jdbcType=VARCHAR},
 		#{nickname,jdbcType=VARCHAR},
 		#{email,jdbcType=VARCHAR}, #{fromChannel,jdbcType=VARCHAR}, #{authId,jdbcType=BIGINT},
 		#{authUserId,jdbcType=VARCHAR}, #{pwd,jdbcType=VARCHAR},
-		#{salt,jdbcType=VARCHAR}
-		)
+		#{salt,jdbcType=VARCHAR},
+		#{lastLoginIp,jdbcType=VARCHAR}, #{lastLoginTime,jdbcType=TIMESTAMP})
 	</insert>
 	<insert id="insertSelective">
 		insert into user
@@ -84,6 +93,12 @@
 			<if test="salt != null">
 				salt,
 			</if>
+			<if test="lastLoginIp != null">
+				last_login_ip,
+			</if>
+			<if test="lastLoginTime != null">
+				last_login_time,
+			</if>
 		</trim>
 		<trim prefix="values (" suffix=")" suffixOverrides=",">
 			<if test="id != null">
@@ -112,6 +127,12 @@
 			</if>
 			<if test="salt != null">
 				#{salt,jdbcType=VARCHAR},
+			</if>
+			<if test="lastLoginIp != null">
+				#{lastLoginIp,jdbcType=VARCHAR},
+			</if>
+			<if test="lastLoginTime != null">
+				#{lastLoginTime,jdbcType=TIMESTAMP},
 			</if>
 		</trim>
 	</insert>
@@ -142,6 +163,12 @@
 			<if test="salt != null">
 				salt = #{salt,jdbcType=VARCHAR},
 			</if>
+			<if test="lastLoginIp != null">
+				last_login_ip = #{lastLoginIp,jdbcType=VARCHAR},
+			</if>
+			<if test="lastLoginTime != null">
+				last_login_time = #{lastLoginTime,jdbcType=TIMESTAMP},
+			</if>
 		</set>
 		where id = #{id,jdbcType=INTEGER}
 	</update>
@@ -154,11 +181,13 @@
 		auth_id = #{authId,jdbcType=BIGINT},
 		auth_user_id = #{authUserId,jdbcType=VARCHAR},
 		pwd = #{pwd,jdbcType=VARCHAR},
-		salt = #{salt,jdbcType=VARCHAR}
+		salt = #{salt,jdbcType=VARCHAR},
+		last_login_ip = #{lastLoginIp,jdbcType=VARCHAR},
+		last_login_time = #{lastLoginTime,jdbcType=TIMESTAMP}
 		where id = #{id,jdbcType=INTEGER}
 	</update>
 
-	<!-- ### 以上代码由MBG + CommentPlugin自动生成, 生成时间: 2012-07-28 13:29:49 ### -->
+	<!-- ### 以上代码由MBG + CommentPlugin自动生成, 生成时间: 2012-08-03 00:58:16 ### -->
 
 	<select id="getByUid" resultMap="BaseResultMap">
 		select u.* from user u where

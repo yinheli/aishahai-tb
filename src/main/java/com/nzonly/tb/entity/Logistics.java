@@ -12,6 +12,7 @@ import java.util.Date;
 public class Logistics extends BaseEntity {
 
 	private static final long serialVersionUID = -6301244285599908635L;
+
 	/**
 	 * 交易ID
 	 *
@@ -20,6 +21,15 @@ public class Logistics extends BaseEntity {
 	 * Nullable:  false
 	 */
 	private Long tid;
+
+	/**
+	 * 授权信息id
+	 *
+	 * Table:     logistics
+	 * Column:    auth_id
+	 * Nullable:  false
+	 */
+	private Long authId;
 
 	/**
 	 * 买家昵称
@@ -58,6 +68,15 @@ public class Logistics extends BaseEntity {
 	private String receiverMobile;
 
 	/**
+	 * 收件人地址信息
+	 *
+	 * Table:     logistics
+	 * Column:    receiver_location
+	 * Nullable:  true
+	 */
+	private String receiverLocation;
+
+	/**
 	 * 物流公司名称
 	 *
 	 * Table:     logistics
@@ -74,6 +93,15 @@ public class Logistics extends BaseEntity {
 	 * Nullable:  true
 	 */
 	private String outSid;
+
+	/**
+	 * 物流订单状态,可选值: CREATED(订单已创建) RECREATED(订单重新创建) CANCELLED(订单已取消) CLOSED(订单关闭) SENDING(等候发送给物流公司) ACCEPTING(已发送给物流公司,等待接单) ACCEPTED(物流公司已接单) REJECTED(物流公司不接单) PICK_UP(物流公司揽收成功) PICK_UP_FAILED(物流公司揽收失败) LOST(物流公司丢单) REJECTED_BY_RECEIVER(对方拒签) ACCEPTED_BY_RECEI
+	 *
+	 * Table:     logistics
+	 * Column:    status
+	 * Nullable:  true
+	 */
+	private String status;
 
 	/**
 	 * 运单创建时间
@@ -149,6 +177,28 @@ public class Logistics extends BaseEntity {
 	 */
 	public void setTid(Long tid) {
 		this.tid = tid;
+	}
+
+	/**
+	 * 授权信息id
+	 *
+	 * Table:     logistics
+	 * Column:    auth_id
+	 * Nullable:  false
+	 */
+	public Long getAuthId() {
+		return authId;
+	}
+
+	/**
+	 * 授权信息id
+	 *
+	 * Table:     logistics
+	 * Column:    auth_id
+	 * Nullable:  false
+	 */
+	public void setAuthId(Long authId) {
+		this.authId = authId;
 	}
 
 	/**
@@ -240,6 +290,28 @@ public class Logistics extends BaseEntity {
 	}
 
 	/**
+	 * 收件人地址信息
+	 *
+	 * Table:     logistics
+	 * Column:    receiver_location
+	 * Nullable:  true
+	 */
+	public String getReceiverLocation() {
+		return receiverLocation;
+	}
+
+	/**
+	 * 收件人地址信息
+	 *
+	 * Table:     logistics
+	 * Column:    receiver_location
+	 * Nullable:  true
+	 */
+	public void setReceiverLocation(String receiverLocation) {
+		this.receiverLocation = receiverLocation;
+	}
+
+	/**
 	 * 物流公司名称
 	 *
 	 * Table:     logistics
@@ -281,6 +353,28 @@ public class Logistics extends BaseEntity {
 	 */
 	public void setOutSid(String outSid) {
 		this.outSid = outSid;
+	}
+
+	/**
+	 * 物流订单状态,可选值: CREATED(订单已创建) RECREATED(订单重新创建) CANCELLED(订单已取消) CLOSED(订单关闭) SENDING(等候发送给物流公司) ACCEPTING(已发送给物流公司,等待接单) ACCEPTED(物流公司已接单) REJECTED(物流公司不接单) PICK_UP(物流公司揽收成功) PICK_UP_FAILED(物流公司揽收失败) LOST(物流公司丢单) REJECTED_BY_RECEIVER(对方拒签) ACCEPTED_BY_RECEI
+	 *
+	 * Table:     logistics
+	 * Column:    status
+	 * Nullable:  true
+	 */
+	public String getStatus() {
+		return status;
+	}
+
+	/**
+	 * 物流订单状态,可选值: CREATED(订单已创建) RECREATED(订单重新创建) CANCELLED(订单已取消) CLOSED(订单关闭) SENDING(等候发送给物流公司) ACCEPTING(已发送给物流公司,等待接单) ACCEPTED(物流公司已接单) REJECTED(物流公司不接单) PICK_UP(物流公司揽收成功) PICK_UP_FAILED(物流公司揽收失败) LOST(物流公司丢单) REJECTED_BY_RECEIVER(对方拒签) ACCEPTED_BY_RECEI
+	 *
+	 * Table:     logistics
+	 * Column:    status
+	 * Nullable:  true
+	 */
+	public void setStatus(String status) {
+		this.status = status;
 	}
 
 	/**
@@ -414,5 +508,4 @@ public class Logistics extends BaseEntity {
 	public void setNote(String note) {
 		this.note = note;
 	}
-
 }

@@ -30,6 +30,10 @@
 				<th>物流公司名称</th>
 				<th>货物名称</th>
 				<th>运单号</th>
+				<th>运单创建时间</th>
+				<th>收件人姓名</th>
+				<th>收件人电话</th>
+				<th>收件人手机号码</th>
 				<th>本地最后处理时间</th>
 				<th>本地备注</th>
 			</tr>
@@ -38,42 +42,41 @@
 			<c:forEach var="item" items="${list.content}">
 			<tr>
 				<td>
-					<!-- tid -->
 					<a href="http://trade.taobao.com/trade/detail/trade_item_detail.htm?bizOrderId=${item.tid}" target="_blank">${item.tid}</a>
 				</td>
 				<td>
-					<!-- out_id -->
 					${item.outSid}
 				</td>
 				<td>
-					<!-- buyer nick -->
 					${item.buyerNick}
 					
 					<a target="_blank"	href="http://www.taobao.com/webww/ww.php?ver=3&touid=${item.buyerNick}&siteid=cntaobao&status=2&charset=utf-8"><img src="http://amos.alicdn.com/realonline.aw?v=2&uid=${item.buyerNick}i&site=cntaobao&s=2&charset=utf-8" alt="发消息" /></a>
 				</td>
 				<td>
-					<!-- payment -->
-					${item.payment}
+					${item.companyName}
 				</td>
 				<td>
-					<!-- created -->
-					<fmt:formatDate value="${item.created}" pattern="yyyy-MM-dd HH:mm:ss"/>
+					${item.itemTitle}
 				</td>
 				<td>
-					<!-- payTime -->
-					<fmt:formatDate value="${item.payTime}" pattern="yyyy-MM-dd HH:mm:ss"/>
-				</td>
-				<td title="${item.status}">
-					<!-- status -->
-					<c:if test="${empty item.status}"> unknow </c:if>
-					<c:if test="${!empty item.status}">${status[item.status]}</c:if>
+					${item.outSid}
 				</td>
 				<td>
-					<!-- local last update time -->
+					<fmt:formatDate value="${item.created}" pattern="yyyy-MM-dd HH:mm:ss" />
+				</td>
+				<td>
+					${item.receiverName}
+				</td>
+				<td>
+					${item.receiverMobile}
+				</td>
+				<td>
+					${item.receiverPhone}
+				</td>
+				<td>
 					<fmt:formatDate value="${item.lastUpdateTime}" pattern="yyyy-MM-dd HH:mm:ss" />
 				</td>
 				<td>
-					<!-- local note -->
 					${item.note}
 				</td>
 			</tr>
@@ -144,15 +147,19 @@ $(function() {
 		
 		var checker = null;
 		
+		if ($("#start").val() == '' || $("#end").val() == '') {
+			alert('请填写起始和结束时间');
+		}
+		
 		$.ajax({
-			url: "${ctx}/ajax/trade/sync",
+			url: "${ctx}/ajax/logistics/sync",
 			type: "POST",
 			data: {start: $("#start").val(), end:$("#end").val()},
 			success: function() {
 				checker = setInterval(function() {
 					$.ajax({
 						cache: false,
-						url: "${ctx}/ajax/trade/process",
+						url: "${ctx}/ajax/logistics/process",
 						success: function(r) {
 							var i = parseInt(r);
 							if (i >= 100) {
