@@ -74,3 +74,31 @@ footer {
 #nav li.user {
 	float: right;
 }
+
+
+table {
+	border: 1px dashed #DEE9F6;
+	margin-bottom: 12px;
+	padding: 3px 0 0;
+	table-layout: fixed;
+}
+
+caption {
+	font-size: 14px;
+	padding-bottom: 5px;
+	text-align: center;
+}
+
+tr:hover {
+	background: #F7F7DF;
+}
+
+th {
+	background: #DEE9F6;
+	padding: 5px;
+}
+
+td {
+	border-top: 1px solid #DEE9F6;
+	padding: 2px 5px;
+}

@@ -15,7 +15,7 @@
 			<!-- daily rollover -->
 			<fileNamePattern>tb.%d{yyyy-MM-dd}.log</fileNamePattern>
 			<!-- keep 30 days' worth of history -->
-			<maxHistory>30</maxHistory>
+			<maxHistory>10</maxHistory>
 		</rollingPolicy>
 		<encoder>
 			<pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{80} - %msg%n</pattern>
@@ -24,6 +24,7 @@
 	
 	<logger name="jdbc.sqltiming" level="INFO" />
 	<logger name="com.nzonly.tb" level="DEBUG" />
+	<logger name="org.springframework.jdbc.datasource.DataSourceTransactionManager" level="DEBUG" />
 	
 	<!-- log4jdbc option log the jdbc results as a table 
 	<logger name="jdbc.resultsettable" additivity="false">

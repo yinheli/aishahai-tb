@@ -1,8 +1,8 @@
 package com.nzonly.tb.quartz;
 
-import javax.annotation.PostConstruct;
-
 import org.quartz.Scheduler;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
@@ -16,26 +16,27 @@ import org.springframework.transaction.annotation.Transactional;
  * @version V1.0
  */
 @Component
-@Transactional(readOnly = true)
+@Transactional(readOnly = false)
 public class ScheduleService {
+	
+	private final Logger log = LoggerFactory.getLogger(getClass());
 	
 	@Autowired
 	private Scheduler scheduler;
 	
-	@PostConstruct
-	@SuppressWarnings("unused")
-	private void initCheck() {
-		
+	public void clearScheduler() throws Exception {
+		log.info("clear all");
+		scheduler.clear();
 	}
-	
+
 	/**
 	 * 添加一个定时任务
 	 * 
 	 * @author yinheli
 	 * @date 2012-7-21 上午10:33:59
 	 */
-	@Transactional(readOnly = false)
-	public void scheduleJob() {
+	public void addTrigger() {
+		log.info("add trigger");
 	}
 
 }
