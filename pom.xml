@@ -28,7 +28,7 @@
 		<log4jdbc-remix.version>0.2.7</log4jdbc-remix.version>
 		<fastjson.version>1.1.19</fastjson.version>
 		<sitemesh.version>2.4.2</sitemesh.version>
-		<shiro.version>1.2.0</shiro.version>
+		<shiro.version>1.7.1</shiro.version>
 	</properties>
 
 	<dependencies>
