@@ -18,7 +18,7 @@
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<spring.version>3.1.1.RELEASE</spring.version>
-		<logback.version>0.9.28</logback.version>
+		<logback.version>1.2.0</logback.version>
 		<commons-lang.version>2.6</commons-lang.version>
 		<dbcp.version>1.4</dbcp.version>
 		<mybatis-spring.version>1.1.1</mybatis-spring.version>
